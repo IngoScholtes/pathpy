@@ -50,7 +50,6 @@
     <Content Include=".gitignore" />
     <Content Include="DESCRIPTION.rst" />
     <Content Include="README.md" />
-    <Content Include="README.rst" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
