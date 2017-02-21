@@ -10,7 +10,7 @@ of pathways from data on temporal networks, such as time-stamped social interact
 
 `pathpy` facilitates the analysis of temporal correlations in such data, using principled model selection 
 techniques to infer higher-order graphical representatiosn that capture both topological and temporal 
-characteristics of time-resolved relational data.
+characteristics of time-resolved relational data. It extends (and will eventually supersede) the package [`pyTempnets`](https://github.com/IngoScholtes/pyTempNets).
 
 This methods implemented in this package have been introduced in the following research works: 
 
