@@ -33,7 +33,7 @@ The latest version of `pathpy` can simply be installed by typing:
 
 ## Acknowledgements
 
-The research behind this data analysis framework was funded by the Swiss State Secretariat for Education, Research and Innovation [(Grant C14.0036)}(https://www.sg.ethz.ch/projects/seri-information-spaces/). The development of this package was generously supported by the [MTEC Foundation](http://www.mtec.ethz.ch/research/support/MTECFoundation.html) in the context of the project [The Influence of Interaction Patterns on Success in Socio-Technical Systems: From Theory to Practice](https://www.sg.ethz.ch/projects/mtec-interaction-patterns/).
+The research behind this data analysis framework was funded by the Swiss State Secretariat for Education, Research and Innovation [(Grant C14.0036)](https://www.sg.ethz.ch/projects/seri-information-spaces/). The development of this package was generously supported by the [MTEC Foundation](http://www.mtec.ethz.ch/research/support/MTECFoundation.html) in the context of the project [The Influence of Interaction Patterns on Success in Socio-Technical Systems: From Theory to Practice](https://www.sg.ethz.ch/projects/mtec-interaction-patterns/).
 
 ## Contributors
 
