@@ -37,7 +37,7 @@ The research behind this data analysis framework was funded by the Swiss State S
 
 ## Contributors
 
-Ingo Scholtes (project lead, development)
+Ingo Scholtes (project lead, development)  
 Roman Cattaneo (development)
 
 ## Copyright
