@@ -29,7 +29,7 @@ The latest version of `pathpy` can simply be installed by typing:
 
 ## Documentation
 
-The code is fully documented via docstrings accessible via `python`' built-in help system. A [reference manual is available here]](https://ingoscholtes.github.io/pathpy/hierarchy.html).
+The code is fully documented via docstrings accessible via `python`' built-in help system. A [reference manual is available here](https://ingoscholtes.github.io/pathpy/hierarchy.html).
 
 ## Tutorial
 
