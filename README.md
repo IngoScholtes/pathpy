@@ -27,6 +27,10 @@ The latest version of `pathpy` can simply be installed by typing:
 
 `> pip install git+git://github.com/IngoScholtes/pathpy.git`
 
+## Documentation
+
+The code is fully documented via docstrings accessible via `python`' built-in help system. A [reference manual is available here]](https://ingoscholtes.github.io/pathpy/hierarchy.html).
+
 ## Tutorial
 
 `pathpy` is the successor of `pyTempNets`. A detailed educational tutorial illustrating its theoretical foundation is [available online](https://www.sg.ethz.ch/team/people/ischoltes/research-insights/temporal-networks-demo/). A tutorial introducing the core features of `pathpy` will be released soon.
