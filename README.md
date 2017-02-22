@@ -1,4 +1,4 @@
-<img src="https://github.com/IngoScholtes/pathpy/blob/master/pathpy_logo.png" width="200" height="200" />
+<img src="https://github.com/IngoScholtes/pathpy/blob/master/pathpy_logo.png" width="300" />
 
 # Introduction
 
