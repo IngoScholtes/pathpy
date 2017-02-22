@@ -1,6 +1,6 @@
-# Introduction
+<img src="https://github.com/IngoScholtes/pathpy/blob/master/pathpy_logo.png" width="200" height="200" />
 
-![alt text](https://github.com/IngoScholtes/pathpy/blob/master/pathpy_logo.png "Logo Title Text 1")
+# Introduction
 
 `pathpy` is an OpenSource python package for the modeling and analysis of pathways and temporal networks
 using higher-order and multi-order graphical models. 
