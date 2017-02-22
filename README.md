@@ -1,5 +1,7 @@
 # Introduction
 
+![alt text](https://github.com/IngoScholtes/pathpy/blob/master/pathpy_logo.png "Logo Title Text 1")
+
 `pathpy` is an OpenSource python package for the modeling and analysis of pathways and temporal networks
 using higher-order and multi-order graphical models. 
 
@@ -46,4 +48,4 @@ Roman Cattaneo (development)
 
 ## Copyright
 
-(c) Copyright ETH Zürich, Chair of Systems Design, 2015-2017
+(c) Copyright ETH ZÃ¼rich, Chair of Systems Design, 2015-2017
