@@ -1,0 +1,71 @@
+\hypertarget{classpathpy_1_1Log_1_1Log}{\section{pathpy.\-Log.\-Log Class Reference}
+\label{classpathpy_1_1Log_1_1Log}\index{pathpy.\-Log.\-Log@{pathpy.\-Log.\-Log}}
+}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classpathpy_1_1Log_1_1Log_a9e0171144845116732949b87d348d27d}{set\-Min\-Severity}
+\item 
+def \hyperlink{classpathpy_1_1Log_1_1Log_a0e7ec3decada72adee6edcda4951e720}{set\-Output\-Stream}
+\item 
+def \hyperlink{classpathpy_1_1Log_1_1Log_a7b948e9bbdcd1ab31bf6ee1a425195f7}{add}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classpathpy_1_1Log_1_1Log_a8f7664b2a5379f9e94402117e22ed058}{{\bfseries output\-\_\-stream} = sys.\-stdout}\label{classpathpy_1_1Log_1_1Log_a8f7664b2a5379f9e94402117e22ed058}
+
+\item 
+\hypertarget{classpathpy_1_1Log_1_1Log_a327ac21443db1980997ddb0c8ef65313}{{\bfseries min\-\_\-severity} = Severity.\-I\-N\-F\-O}\label{classpathpy_1_1Log_1_1Log_a327ac21443db1980997ddb0c8ef65313}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}A simple logging class, that allows to select what messages should 
+    be recorded in the output, and where these message should be directed.
+\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\hypertarget{classpathpy_1_1Log_1_1Log_a7b948e9bbdcd1ab31bf6ee1a425195f7}{\index{pathpy\-::\-Log\-::\-Log@{pathpy\-::\-Log\-::\-Log}!add@{add}}
+\index{add@{add}!pathpy::Log::Log@{pathpy\-::\-Log\-::\-Log}}
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}def pathpy.\-Log.\-Log.\-add (
+\begin{DoxyParamCaption}
+\item[{}]{msg, }
+\item[{}]{severity = {\ttfamily Severity.INFO}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classpathpy_1_1Log_1_1Log_a7b948e9bbdcd1ab31bf6ee1a425195f7}
+\begin{DoxyVerb}Adds a message with the given severity to the log. This message will be written 
+    to the log output stream, which by default is sys.stdout. A newline character 
+    will be added to the message by default.
+\end{DoxyVerb}
+ \hypertarget{classpathpy_1_1Log_1_1Log_a9e0171144845116732949b87d348d27d}{\index{pathpy\-::\-Log\-::\-Log@{pathpy\-::\-Log\-::\-Log}!set\-Min\-Severity@{set\-Min\-Severity}}
+\index{set\-Min\-Severity@{set\-Min\-Severity}!pathpy::Log::Log@{pathpy\-::\-Log\-::\-Log}}
+\subsubsection[{set\-Min\-Severity}]{\setlength{\rightskip}{0pt plus 5cm}def pathpy.\-Log.\-Log.\-set\-Min\-Severity (
+\begin{DoxyParamCaption}
+\item[{}]{severity}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classpathpy_1_1Log_1_1Log_a9e0171144845116732949b87d348d27d}
+\begin{DoxyVerb}Sets the minimum sveerity level a message 
+needs to have in order to be recorded in the output stream.
+By default, any message which has a severity of at least 
+Severity.INFO will be written to the output stream. All messages 
+with lower priority will be surpressed.
+\end{DoxyVerb}
+ \hypertarget{classpathpy_1_1Log_1_1Log_a0e7ec3decada72adee6edcda4951e720}{\index{pathpy\-::\-Log\-::\-Log@{pathpy\-::\-Log\-::\-Log}!set\-Output\-Stream@{set\-Output\-Stream}}
+\index{set\-Output\-Stream@{set\-Output\-Stream}!pathpy::Log::Log@{pathpy\-::\-Log\-::\-Log}}
+\subsubsection[{set\-Output\-Stream}]{\setlength{\rightskip}{0pt plus 5cm}def pathpy.\-Log.\-Log.\-set\-Output\-Stream (
+\begin{DoxyParamCaption}
+\item[{}]{stream}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classpathpy_1_1Log_1_1Log_a0e7ec3decada72adee6edcda4951e720}
+\begin{DoxyVerb}Sets the output stream to which all messages will be 
+    written. By default, this is sys.stdout, but it can be 
+    changed in order to redirect the log to a logfile. 
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/mnt/c/\-Users/ingos/\-Desktop/pathpy/pathpy/Log.\-py\end{DoxyCompactItemize}

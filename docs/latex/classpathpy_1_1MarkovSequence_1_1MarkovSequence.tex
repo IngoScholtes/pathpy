@@ -1,0 +1,114 @@
+\hypertarget{classpathpy_1_1MarkovSequence_1_1MarkovSequence}{\section{pathpy.\-Markov\-Sequence.\-Markov\-Sequence Class Reference}
+\label{classpathpy_1_1MarkovSequence_1_1MarkovSequence}\index{pathpy.\-Markov\-Sequence.\-Markov\-Sequence@{pathpy.\-Markov\-Sequence.\-Markov\-Sequence}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a670778608688e4926328cf2d851b7d6d}{\-\_\-\-\_\-init\-\_\-\-\_\-}
+\item 
+def \hyperlink{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a422f6b70f888eaab6a6f942158355072}{fit\-Markov\-Model}
+\item 
+def \hyperlink{classpathpy_1_1MarkovSequence_1_1MarkovSequence_ab820bbcfb5569ef05e361aa478c521f6}{get\-Likelihood}
+\item 
+def \hyperlink{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a975922931ec471f436c4d340830a7ca3}{get\-B\-I\-C}
+\item 
+def \hyperlink{classpathpy_1_1MarkovSequence_1_1MarkovSequence_aba5377e966e3bfb9c4c736e782863484}{get\-A\-I\-C}
+\item 
+def \hyperlink{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a0e794225267c8195f091f5ed452d34e6}{estimate\-Order}
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classpathpy_1_1MarkovSequence_1_1MarkovSequence_ac0cbbe436a3938f2ff94d313c72c4e67}{{\bfseries sequence}}\label{classpathpy_1_1MarkovSequence_1_1MarkovSequence_ac0cbbe436a3938f2ff94d313c72c4e67}
+
+\item 
+\hypertarget{classpathpy_1_1MarkovSequence_1_1MarkovSequence_ac0d2ff028f2c2c88349555527e44a898}{{\bfseries P}}\label{classpathpy_1_1MarkovSequence_1_1MarkovSequence_ac0d2ff028f2c2c88349555527e44a898}
+
+\item 
+\hypertarget{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a77ca53bfcfb5458a8834b8b6392422ce}{{\bfseries states}}\label{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a77ca53bfcfb5458a8834b8b6392422ce}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}Instances of this class can be used to fit 
+    standard higher-order Markov models for 
+    sequences generated from concatenated paths \end{DoxyVerb}
+ 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a670778608688e4926328cf2d851b7d6d}{\index{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}!\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}}
+\index{\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}!pathpy::MarkovSequence::MarkovSequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}}
+\subsubsection[{\-\_\-\-\_\-init\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}def pathpy.\-Markov\-Sequence.\-Markov\-Sequence.\-\_\-\-\_\-init\-\_\-\-\_\- (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{sequence}
+\end{DoxyParamCaption}
+)}}\label{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a670778608688e4926328cf2d851b7d6d}
+\begin{DoxyVerb}Generates a Markov model for a sequence, given 
+as a single list of strings
+\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\hypertarget{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a0e794225267c8195f091f5ed452d34e6}{\index{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}!estimate\-Order@{estimate\-Order}}
+\index{estimate\-Order@{estimate\-Order}!pathpy::MarkovSequence::MarkovSequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}}
+\subsubsection[{estimate\-Order}]{\setlength{\rightskip}{0pt plus 5cm}def pathpy.\-Markov\-Sequence.\-Markov\-Sequence.\-estimate\-Order (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{max\-Order, }
+\item[{}]{method = {\ttfamily 'BIC'}}
+\end{DoxyParamCaption}
+)}}\label{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a0e794225267c8195f091f5ed452d34e6}
+\begin{DoxyVerb}Estimates the optimal order of a Markov model
+    based on Likelihood, BIC or AIC \end{DoxyVerb}
+ \hypertarget{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a422f6b70f888eaab6a6f942158355072}{\index{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}!fit\-Markov\-Model@{fit\-Markov\-Model}}
+\index{fit\-Markov\-Model@{fit\-Markov\-Model}!pathpy::MarkovSequence::MarkovSequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}}
+\subsubsection[{fit\-Markov\-Model}]{\setlength{\rightskip}{0pt plus 5cm}def pathpy.\-Markov\-Sequence.\-Markov\-Sequence.\-fit\-Markov\-Model (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{k = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)}}\label{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a422f6b70f888eaab6a6f942158355072}
+\begin{DoxyVerb}Generates a k-th order Markov model 
+    for the underlying sequence
+\end{DoxyVerb}
+ \hypertarget{classpathpy_1_1MarkovSequence_1_1MarkovSequence_aba5377e966e3bfb9c4c736e782863484}{\index{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}!get\-A\-I\-C@{get\-A\-I\-C}}
+\index{get\-A\-I\-C@{get\-A\-I\-C}!pathpy::MarkovSequence::MarkovSequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}}
+\subsubsection[{get\-A\-I\-C}]{\setlength{\rightskip}{0pt plus 5cm}def pathpy.\-Markov\-Sequence.\-Markov\-Sequence.\-get\-A\-I\-C (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{k = {\ttfamily 1}, }
+\item[{}]{m = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)}}\label{classpathpy_1_1MarkovSequence_1_1MarkovSequence_aba5377e966e3bfb9c4c736e782863484}
+\begin{DoxyVerb}Returns the Aikake Information Criterion
+    assuming a k-th order Markov model \end{DoxyVerb}
+ \hypertarget{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a975922931ec471f436c4d340830a7ca3}{\index{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}!get\-B\-I\-C@{get\-B\-I\-C}}
+\index{get\-B\-I\-C@{get\-B\-I\-C}!pathpy::MarkovSequence::MarkovSequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}}
+\subsubsection[{get\-B\-I\-C}]{\setlength{\rightskip}{0pt plus 5cm}def pathpy.\-Markov\-Sequence.\-Markov\-Sequence.\-get\-B\-I\-C (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{k = {\ttfamily 1}, }
+\item[{}]{m = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)}}\label{classpathpy_1_1MarkovSequence_1_1MarkovSequence_a975922931ec471f436c4d340830a7ca3}
+\begin{DoxyVerb}Returns the Bayesian Information Criterion
+    assuming a k-th order Markov model \end{DoxyVerb}
+ \hypertarget{classpathpy_1_1MarkovSequence_1_1MarkovSequence_ab820bbcfb5569ef05e361aa478c521f6}{\index{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}!get\-Likelihood@{get\-Likelihood}}
+\index{get\-Likelihood@{get\-Likelihood}!pathpy::MarkovSequence::MarkovSequence@{pathpy\-::\-Markov\-Sequence\-::\-Markov\-Sequence}}
+\subsubsection[{get\-Likelihood}]{\setlength{\rightskip}{0pt plus 5cm}def pathpy.\-Markov\-Sequence.\-Markov\-Sequence.\-get\-Likelihood (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{k = {\ttfamily 1}, }
+\item[{}]{log = {\ttfamily True}}
+\end{DoxyParamCaption}
+)}}\label{classpathpy_1_1MarkovSequence_1_1MarkovSequence_ab820bbcfb5569ef05e361aa478c521f6}
+\begin{DoxyVerb}Returns the likelihood of the sequence 
+assuming a k-th order Markov model 
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/mnt/c/\-Users/ingos/\-Desktop/pathpy/pathpy/Markov\-Sequence.\-py\end{DoxyCompactItemize}
