@@ -3,18 +3,18 @@
 # Introduction
 
 `pathpy` is an OpenSource python package for the modeling and analysis of pathways and temporal networks
-using **higher-order** and **multi-order** graphical models. 
+using **higher-order** and **multi-order** graphical models.
 
-The package is specifically tailored to analyze sequential data which capture multiple observations of short, independent paths 
+The package is specifically tailored to analyze sequential data which capture multiple observations of short, independent paths
 observed in an underlying graph topology. Examples for such data include user click streams in information networks,
-biological pathways, or traces of information propagating in social media. Unifying the analysis of pathways and temporal networks, 
-`pathpy` also supports the extraction of time-respecting paths from time-stamped network data. It extends (and will eventually supersede) 
+biological pathways, or traces of information propagating in social media. Unifying the analysis of pathways and temporal networks,
+`pathpy` also supports the extraction of time-respecting paths from time-stamped network data. It extends (and will eventually supersede)
 the package [`pyTempnets`](https://github.com/IngoScholtes/pyTempNets).
 
-`pathpy` facilitates the analysis of temporal correlations in such sequential data. It uses a principled model selection 
-technique to infer higher-order graphical representations that capture both topological and temporal 
+`pathpy` facilitates the analysis of temporal correlations in such sequential data. It uses a principled model selection
+technique to infer higher-order graphical representations that capture both topological and temporal
 characteristics of time-resolved relational data. It specifically allows to answer the question whether a (first-order) network
-abstraction of such data is justified, or whether higher-order network abstractions are needed. 
+abstraction of such data is justified, or whether higher-order network abstractions are needed.
 
 The theoretical foundation of this package, **higher-order network models**, has been developed in the following research works:
 
@@ -29,13 +29,15 @@ The latest version of `pathpy` can be installed by typing:
 
 `> pip install git+git://github.com/IngoScholtes/pathpy.git`
 
+# Tutorial
+
+A [comprehensive educational tutorial](https://ingoscholtes.github.io/pathpy/tutorial.html) which shows how you can use `pathpy` to analyze your data sets is [available online](https://ingoscholtes.github.io/pathpy/tutorial.html). 
+Moreover, a tutorial which illustrates the abstraction of **higher-order networks** in the modeling of dynamical processes in temporal networks is [available here](https://www.sg.ethz.ch/team/people/ischoltes/research-insights/temporal-networks-demo/). The 
+latter tutorial is based on the predecessor library `pyTempNets` but most of its features have already been included in `pathpy`.
+
 # Documentation
 
 The code is fully documented via docstrings which are accessible through python's built-in help system. Just type `help(SYMBOL_NAME)` to see the documentation of a class or method. A [reference manual is available here](https://ingoscholtes.github.io/pathpy/hierarchy.html).
-
-# Tutorial
-
-`pathpy` is the successor of `pyTempNets`. A comprehensive tutorial which illustrates the concept of **higher-order networks** is [available online](https://www.sg.ethz.ch/team/people/ischoltes/research-insights/temporal-networks-demo/). An educational tutorial that introduces the core features of `pathpy` will be released soon. Please stay tuned!
 
 # Acknowledgements
 
@@ -43,8 +45,8 @@ The research behind this data analysis framework was funded by the Swiss State S
 
 # Contributors
 
-[Ingo Scholtes](http://www.ingoscholtes.net) (project lead, development)  
-Roman Cattaneo (development)  
+[Ingo Scholtes](http://www.ingoscholtes.net) (project lead, development)
+Roman Cattaneo (development)
 Nicolas Wider (testing)
 
 # Copyright
