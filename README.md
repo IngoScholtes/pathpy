@@ -1,3 +1,4 @@
+
 <img src="https://github.com/IngoScholtes/pathpy/blob/master/pathpy_logo.png" width="300" />
 
 # Introduction
@@ -45,6 +46,7 @@ The research behind this data analysis framework was funded by the Swiss State S
 
 [Ingo Scholtes](http://www.ingoscholtes.net) (project lead, development)  
 Roman Cattaneo (development)
+Nicolas Wider (testing)
 
 ## Copyright
 
