@@ -29,24 +29,24 @@ The latest version of `pathpy` can be installed by typing:
 
 `> pip install git+git://github.com/IngoScholtes/pathpy.git`
 
-## Documentation
+# Documentation
 
 The code is fully documented via docstrings which are accessible through python's built-in help system. Just type `help(SYMBOL_NAME)` to see the documentation of a class or method. A [reference manual is available here](https://ingoscholtes.github.io/pathpy/hierarchy.html).
 
-## Tutorial
+# Tutorial
 
 `pathpy` is the successor of `pyTempNets`. A comprehensive tutorial which illustrates the concept of **higher-order networks** is [available online](https://www.sg.ethz.ch/team/people/ischoltes/research-insights/temporal-networks-demo/). An educational tutorial that introduces the core features of `pathpy` will be released soon. Please stay tuned!
 
-## Acknowledgements
+# Acknowledgements
 
 The research behind this data analysis framework was funded by the Swiss State Secretariat for Education, Research and Innovation [(Grant C14.0036)](https://www.sg.ethz.ch/projects/seri-information-spaces/). The development of this package was generously supported by the [MTEC Foundation](http://www.mtec.ethz.ch/research/support/MTECFoundation.html) in the context of the project [The Influence of Interaction Patterns on Success in Socio-Technical Systems: From Theory to Practice](https://www.sg.ethz.ch/projects/mtec-interaction-patterns/).
 
-## Contributors
+# Contributors
 
 [Ingo Scholtes](http://www.ingoscholtes.net) (project lead, development)  
 Roman Cattaneo (development)  
 Nicolas Wider (testing)
 
-## Copyright
+# Copyright
 
 (c) Copyright ETH Zürich, Chair of Systems Design, 2015-2017
