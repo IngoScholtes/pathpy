@@ -823,11 +823,10 @@ Paths of length k = 2		1 (1/0/1)
 <p>Rather than manually adding paths or time-stamped edges, we can directly read <code>Paths</code> and <code>TemporalNetwork</code> instances from data files.</p>
 <p>For pathway data, the <code>Paths</code> class can be used to read <strong>n-gram files</strong>, i.e. text files where each line contains a path with variable length. Vertices can be arbitrary strings, separated by a special character that can be set when reading the file. <code>pathpy</code> supports data where each path is observed multiple times. This either works by reading files where identical paths occur in multiple lines of the file, or by including a special last column in each line which contains the number of observations of a path.</p>
 <p>Such an n-gram file can look like the following excerpt from a file that captures <a href="https://tfl.gov.uk/info-for/open-data-users/">travel itineraries of passengers of the London Tube</a>, recorded via smartcard readers:</p>
-<p>`344,314,445,440,513,346,305,312,289,367,356,299,376,9<br>
-339,303,323,376,299,356,367,289,312,305,346,400,465,382,325,7<br>
-296,430,474,271,332,331,441,341,280,294,362,528,344,493,29<br>
-...<br>
-`</p>
+<p><code>344,314,445,440,513,346,305,312,289,367,356,299,376,9</code><br>
+<code>339,303,323,376,299,356,367,289,312,305,346,400,465,382,325,7</code><br>
+<code>296,430,474,271,332,331,441,341,280,294,362,528,344,493,29</code><br>
+<code>...</code></p>
 <p>Numbers indicate metro stations passed by on an itinerary, except for the last column which indicates the number of times the given path was observed. If we save such data in a textfile called <code>tube_paths.ngram</code>, we can read it as follows:</p>
 
 </div>
@@ -913,12 +912,11 @@ Paths of length k = 35		5 (1/0/5)
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The large numbers result from the calculation of sub-path statistics outlined above. Here, the fact that this data set contains many long paths results in more than 180 million shorter sub-paths which are contained within longer pathways.</p>
 <p>We finally show how we can read temporal networks from data files. Here we assume that we are given a data file that has the following format</p>
-<p>`time source target
-28820 492 938
-28860 267 272
-29300 181 826
-...
-`</p>
+<p><code>time source target</code><br>
+<code>28820 492 938</code><br>
+<code>28860 267 272</code><br>
+<code>29300 181 826</code><br>
+<code>...</code></p>
 <p>Each line captures a directed time-stamped edge from source to target, happening instantaneously at the indicated time stamp. The header column tells which column is which. The ordering of columns can be arbitrary and the character that separates column can be specified.</p>
 <p>The above lines are actually an excerpt from a time-stamped data set released by the <a href="http://www.sociopatterns.org">SocioPatterns collaboration</a>. It captures <a href="http://www.sociopatterns.org/datasets/contacts-in-a-workplace/">face-to-face encounters of workers in a company</a>, recorded via sensor badges. We can read this data file to a <code>TemporalNetwork</code> instance as follows:</p>
 
