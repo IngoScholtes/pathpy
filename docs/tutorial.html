@@ -823,10 +823,10 @@ Paths of length k = 2		1 (1/0/1)
 <p>Rather than manually adding paths or time-stamped edges, we can directly read <code>Paths</code> and <code>TemporalNetwork</code> instances from data files.</p>
 <p>For pathway data, the <code>Paths</code> class can be used to read <strong>n-gram files</strong>, i.e. text files where each line contains a path with variable length. Vertices can be arbitrary strings, separated by a special character that can be set when reading the file. <code>pathpy</code> supports data where each path is observed multiple times. This either works by reading files where identical paths occur in multiple lines of the file, or by including a special last column in each line which contains the number of observations of a path.</p>
 <p>Such an n-gram file can look like the following excerpt from a file that captures <a href="https://tfl.gov.uk/info-for/open-data-users/">travel itineraries of passengers of the London Tube</a>, recorded via smartcard readers:</p>
-<p>`344,314,445,440,513,346,305,312,289,367,356,299,376,9
-339,303,323,376,299,356,367,289,312,305,346,400,465,382,325,7
-296,430,474,271,332,331,441,341,280,294,362,528,344,493,29
-...
+<p>`344,314,445,440,513,346,305,312,289,367,356,299,376,9<br>
+339,303,323,376,299,356,367,289,312,305,346,400,465,382,325,7<br>
+296,430,474,271,332,331,441,341,280,294,362,528,344,493,29<br>
+...<br>
 `</p>
 <p>Numbers indicate metro stations passed by on an itinerary, except for the last column which indicates the number of times the given path was observed. If we save such data in a textfile called <code>tube_paths.ngram</code>, we can read it as follows:</p>
 
