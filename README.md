@@ -23,20 +23,20 @@ The theoretical foundation of this package, **higher-order network models**, has
 3. I Scholtes, N Wider, R Pfitzner, A Garas, CJ Tessone, F Schweitzer: [Causality-driven slow-down and speed-up of diffusion in non-Markovian temporal networks](http://www.nature.com/ncomms/2014/140924/ncomms6024/full/ncomms6024.html), Nature Communications, 5, September 2014
 4. R Pfitzner, I Scholtes, A Garas, CJ Tessone, F Schweitzer: [Betweenness preference: Quantifying correlations in the topological dynamics of temporal networks](http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.110.198701), Phys Rev Lett, 110(19), 198701, May 2013
 
-`pathpy` extends this approach towards **multi-layer graphical models** that capture temporal correlations in pathways at multiple length scales simultaneously. An illustrative example for 
-a collection of pathways (left) and a multi-order graphical representation of these pathways is sown below.
+`pathpy` extends this approach towards **multi-layer graphical models** that capture temporal correlations in pathways at multiple length scales simultaneously. An illustrative example for
+a collection of pathways (left) and a multi-order graphical representation of these pathways is shown below. All mathematical details of the framework can be found in this [recent research paper](https://arxiv.org/abs/1702.05499).
 
-<img src="https://github.com/IngoScholtes/pathpy/blob/master/multiorder.png" width="400" alt="Illustration of Multi-Order Model" />
+<img src="https://github.com/IngoScholtes/pathpy/blob/master/multiorder.png" width="500" alt="Illustration of Multi-Order Model" />
 
 # Download and installation
 
-The module is written in pure python. It has no platform-specific dependencies and should thus work on all platforms. It builds on `numpy` and `scipy`. The latest version of `pathpy` can be installed by typing:
+`pathpy` is pure python code. It has no platform-specific dependencies and should thus work on all platforms. It builds on `numpy` and `scipy`. The latest version of `pathpy` can be installed by typing:
 
 `> pip install git+git://github.com/IngoScholtes/pathpy.git`
 
 # Tutorial
 
-A [comprehensive educational tutorial](https://ingoscholtes.github.io/pathpy/tutorial.html) which shows how you can use `pathpy` to analyze your data sets is [available online](https://ingoscholtes.github.io/pathpy/tutorial.html).
+A [comprehensive educational tutorial](https://ingoscholtes.github.io/pathpy/tutorial.html) which shows how you can use `pathpy` to analyze data on pathways and temporal networks is [available online](https://ingoscholtes.github.io/pathpy/tutorial.html).
 Moreover, a tutorial which illustrates the abstraction of **higher-order networks** in the modeling of dynamical processes in temporal networks is [available here](https://www.sg.ethz.ch/team/people/ischoltes/research-insights/temporal-networks-demo/). The
 latter tutorial is based on the predecessor library `pyTempNets` but most of its features have already been included in `pathpy`.
 
