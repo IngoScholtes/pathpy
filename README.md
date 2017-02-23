@@ -23,7 +23,10 @@ The theoretical foundation of this package, **higher-order network models**, has
 3. I Scholtes, N Wider, R Pfitzner, A Garas, CJ Tessone, F Schweitzer: [Causality-driven slow-down and speed-up of diffusion in non-Markovian temporal networks](http://www.nature.com/ncomms/2014/140924/ncomms6024/full/ncomms6024.html), Nature Communications, 5, September 2014
 4. R Pfitzner, I Scholtes, A Garas, CJ Tessone, F Schweitzer: [Betweenness preference: Quantifying correlations in the topological dynamics of temporal networks](http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.110.198701), Phys Rev Lett, 110(19), 198701, May 2013
 
-<img src="https://github.com/IngoScholtes/pathpy/blob/master/multiorder.png" width="300" alt="Illustration of Multi-Order Model" />
+`pathpy` extends this approach towards **multi-layer graphical models** that capture temporal correlations in pathways at multiple length scales simultaneously. An illustrative example for 
+a collection of pathways (left) and a multi-order graphical representation of these pathways is sown below.
+
+<img src="https://github.com/IngoScholtes/pathpy/blob/master/multiorder.png" width="400" alt="Illustration of Multi-Order Model" />
 
 # Download and installation
 
