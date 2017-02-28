@@ -235,7 +235,10 @@ class HigherOrderNetwork:
 
     def totalEdgeWeight(self):
         """ Returns the sum of all edge weights """
-        return sum(self.edges.values())
+        if len(self.edges)>0:
+            return sum(self.edges.values())
+        else:
+            return (0,0)
 
 
     def HigherOrderNodeToPath(self, node):
@@ -703,7 +706,7 @@ class HigherOrderNetwork:
                 self.nodes.remove(v)
                 del self.successors[v]
 
-        for (v,w) in self.edges:
+        for (v,w) in list(self.edges):
             if v not in scc or w not in scc:
                 del self.edges[(v,w)]
                     

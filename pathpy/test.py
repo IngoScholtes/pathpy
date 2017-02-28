@@ -50,6 +50,49 @@ ms = pp.MarkovSequence(x)
 assert ms.estimateOrder(maxOrder=2, method='BIC') == 1, "Error, wrongly detected higher-order correlations"
 assert ms.estimateOrder(maxOrder=2, method='AIC') == 1, "Error, wrongly detected higher-order correlations"
 
+g1 = pp.HigherOrderNetwork(paths, k=1)
+print(g1)
+assert g1.vcount() == 5, "Error, wrong number of nodes in first-order network"
+assert g1.ecount() == 4, "Error, wrong number of links in first-order network"
+
+g2 = pp.HigherOrderNetwork(paths, k=2)
+print(g2)
+assert g2.vcount() == 4, "Error, wrong number of nodes in second-order network"
+assert g2.ecount() == 2, "Error, wrong number of links in second-order network"
+
+g2.reduceToGCC()
+
+print(g2)
+assert g2.vcount() == 1, "Error, wrong number of nodes in giant connected component"
+assert g2.ecount() == 0, "Error, wrong number of links in giant connected component"
+
+
+# Example with single strongly connected component in first- and two connected components in second-order network
+paths = pp.Paths()
+
+paths.addPath('a,b,c')
+paths.addPath('b,c,b')
+paths.addPath('c,b,a')
+paths.addPath('b,a,b')
+
+paths.addPath('e,b,f')
+paths.addPath('b,f,b')
+paths.addPath('f,b,e')
+paths.addPath('b,e,b')
+
+g1 = pp.HigherOrderNetwork(paths, k=1)
+print(g1)
+g1.reduceToGCC()
+assert g1.vcount() == 5, "Error, wrong number of nodes in first-order network"
+assert g1.ecount() == 8, "Error, wrong number of links in first-order network"
+
+g2 = pp.HigherOrderNetwork(paths, k=2)
+print(g2)
+g2.reduceToGCC()
+assert g2.vcount() == 4, "Error, wrong number of nodes in second-order network"
+assert g2.ecount() == 4, "Error, wrong number of links in second-order network"
+
+
 #########################
 # TEST TEMPORAL NETWORK #
 #########################
