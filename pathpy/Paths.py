@@ -64,7 +64,8 @@ class Paths:
                 for v in p:
                     nodes.add(v)
             maxL = max(maxL, k)
-        avgL = avgL / lpsum
+        if lpsum>0:
+            avgL = avgL / lpsum
 
         summary = 'Number of paths (unique/sub paths/total):\t' +  str(lpsum) + ' (' + str(self.getUniquePaths()) + '/'+ str(spsum) + '/' + str(sum) + ')\n'
         summary += 'Nodes:\t\t\t\t' + str(len(nodes)) + '\n'
@@ -79,7 +80,7 @@ class Paths:
                 sum += self.paths[k][p].sum()          
                 spsum += self.paths[k][p][0]
                 lpsum += self.paths[k][p][1]
-            summary += 'Paths of length k = ' + str(k) + '\t\t' + str(lpsum) + ' (' + str(self.getUniquePaths(l=k)) + '/' + str(spsum) + '/'+ str(sum) +  ')\n'
+            summary += 'Paths of length k = ' + str(k) + '\t\t' + str(lpsum) + ' (' + str(self.getUniquePaths(l=k, considerLongerPaths=False)) + '/' + str(spsum) + '/'+ str(sum) +  ')\n'
         return summary
 
 
@@ -109,18 +110,19 @@ class Paths:
         return sequence
 
 
-    def getUniquePaths(self, l=-1):
+    def getUniquePaths(self, l=0, considerLongerPaths=True):
         """
-        Returns the number of unique paths up to a given length l. For the default 
-        value of l=-1 paths of any length will be counted. 
+        Returns the number of unique paths of a given length l (and possibly longer)
 
         @param l: the (inclusive) maximum length up to which path shall be counted. 
         """
         L = 0
-        if l < 0:
-            lmax = max(self.paths)
-        else:
-            lmax = l
+        lmax = l
+        if considerLongerPaths:
+            if len(self.paths)>0:
+                lmax = max(self.paths)
+            else:
+                lmax = 0
         for j in range(l, lmax+1):
             for p in self.paths[j]:
                 if self.paths[j][p][1]>0:
@@ -313,7 +315,7 @@ class Paths:
 
     @staticmethod
     def fromTemporalNetwork(tempnet, delta=1, maxLength=_sys.maxsize):
-        """ Calculates the frequency of all time-respecting paths up to maximum length of k, assuming 
+        """ Calculates the frequency of all time-respecting paths up to maximum length of maxLength, assuming 
         a maximum temporal distance of delta between consecutive time-stamped links on a path. 
         This (static) method returns an instance of the class Paths, which can subsequently be used to 
         generate higher-order network representations based on the path statistics.
@@ -337,7 +339,7 @@ class Paths:
         if maxLength==_sys.maxsize:
             Log.add('Extracting time-respecting paths for delta = ' + str(delta) + ' ...')
         else:
-            Log.add('Extracting time-respecting paths up to length ' + str(k) + ' for delta = ' + str(delta) + ' ...')      
+            Log.add('Extracting time-respecting paths up to length ' + str(maxLength) + ' for delta = ' + str(delta) + ' ...')
 
         # for dictionary p.paths paths[k] contains a list of all 
         # time-respecting paths p with length k and paths[k][p] contains 
@@ -346,79 +348,88 @@ class Paths:
         # the number of occurrences of p as "real" path
         p = Paths()
 
-        # a dictionary for those paths that can possibly be extended 
+        # a dictionary containing paths that can still be extended 
         # by future time-stamped links
-        candidates = _co.defaultdict ( lambda: _co.defaultdict( lambda: list() ) )
+        # candidates[t][v] is a set of paths which end at time t in node v
+        candidates = _co.defaultdict ( lambda: _co.defaultdict( lambda: set() ) )
 
-        # a dictionary of longest time-respecting paths (i.e. not those paths which are 
-        # subpaths of a longer time-respecting path
+        # Note that here we only extract **longest** time-respecting paths, as we will use 
+        # the expandSubpaths function later to calculate statistics of shorter paths anyway
+
+        # set of longest time-respecting paths (i.e. those paths which are 
+        # NOT sub path of a longer time-respecting path)
         longest_paths = set()
-
-        # TODO: We need to keep the information how many times a time-respecting path 
-        # has been observed as a *subpath* of a longer time-respecting path, and how many 
-        # times as a "real", i.e. *longest* time-respecting path
 
         # loop over all time stamps t of edges
         for t in tempnet.ordered_times:
 
             for e in tempnet.time[t]:
+                # assume that this edge is the root of a longest time-respecting path
+                root = True
 
-                # each edge is a new longest path of length one (independent of delta)
-                # p.paths[1][(e[0], e[1])] += (0,1)
-
-                # hypothesize that the edge is the root of a longest time-respecting path
-                root = True                
-
-                # add edge to candidates that can be extended by future paths
-                if maxLength>1:
-                    candidates[t][e[1]].append( ( (e[0], e[1], t), ) )
-
-                # check whether candidates with time stamps in [t-delta, t) can be continued ... 
-                for t_prev in candidates:
+                # check whether this edge extends existing candidates
+                for t_prev in list(candidates):
+                    # time stamp of candidate has to be in [t-delta, t) ...
                     if t_prev >= t-delta and t_prev < t:
-                        # ... and where the last node is e[0] ...
+                        # ... and last node has to be e[0] ...
                         if e[0] in candidates[t_prev]:
-                            for c in candidates[t_prev][e[0]]:
+                            for c in list(candidates[t_prev][e[0]]):
 
-                                # c is a path (p_0, p_1, ...) which ends in node e[0]                            
+                                # c is path (p_0, p_1, ...) which ends in node e[0] at time t_prev
                                 new_path = c + ((e[0], e[1], t),)
 
-                                # (e[0], e[1]) is not the root of the longest path
-                                # since it is a continuation of a longer path
+                                # we now know that (e[0], e[1]) is not the root of a new longest path
+                                # as it continues a previous path c
                                 root = False
 
-                                # increment the path counter (for being a subpath)
-                                # p.paths[len(new_path)-1][new_path] += (1,0)
-
-                                # if the newly found path continues what has previously been considered 
-                                # a longest path, we must correct the longest_path counter
+                                # if c has previously been considered a longest path, we discard it 
+                                # from the list of longest paths. We also add the extended path as 
+                                # a new longest path (possible removing it later if it is further extended)
                                 longest_paths.discard(c)
                                 longest_paths.add(new_path)
 
-                                # finally, we add the newly found path to candidates for paths 
+                                # we add the newly found path as a candidate for paths
                                 # which can be continued by future edges
-                                if len(new_path)<maxLength:
-                                    candidates[t][e[1]].append(new_path)
+                                if len(new_path)<maxLength:                                    
+                                    candidates[t][e[1]].add(new_path)
+
+                                # delete candidate c, because from now on 
+                                # we only extend new_path
+                                candidates[t_prev][e[0]].discard(c)
                 
-                # if the time-stamped edge is the root of a 
-                # longest time-respecting path, we start a new longest path 
+                # if edge e does not continue a previous path
+                # we start a new longest path
                 if root:
                     longest_paths.add( ((e[0], e[1], t),) )
+                    # add edge as candidate path of length one that can be extended by future edges
+                    if maxLength>1:
+                        candidates[t][e[1]].add( ( (e[0], e[1], t), ) )
             
-            # remove all candidate paths whose time stamp is smaller than t-delta
+            # we finished processing time stamp t, so
+            # we can remove all candidates which finish
+            # at a time smaller than t-delta. Since they cannot 
+            # be extended, these are longest paths 
             for t_prev in list(candidates.keys()):
-                if t_prev < t-delta:                    
+                if t_prev < t-delta:
                     del(candidates[t_prev])
+
+        # once we reached the last time stamp, add all candidates                     
+        # as longest paths 
+        #for t_prev in candidates:
+        #    for x in candidates[t_prev]:
+        #        for p in candidates[t_prev][x]:
+        #            longest_paths.add(p)
         
         # Count occurrences as longest time-respecting path
-        for x in longest_paths: 
+        for x in longest_paths:
             path = (x[0][0],)
             for edge in x:
                 path += (edge[1],)
             p.paths[len(x)][path] += _np.array([0,1])
 
-        # expand all sub paths of longest paths
+        # expand sub paths of longest paths
         p.expandSubPaths()
+
         Log.add('finished.')
 
         return p
@@ -681,20 +692,74 @@ class Paths:
         return Hk/Hk_n   
 
 
-    def BetweennessPreference(self, k=1, normalized=False, method = 'MLE'):
-        """
-        Calculates the k-th order betweenness preferences of 
-        k-th order nodes based on the mutual information of path 
-        statistics of length k+1. The minimum order k for which 
-        betweenness preference can be computed is one, in which 
-        case for each first-order node v all paths s->v->d of length 
-        two will be considered for all nodes s and d. In the general case of 
-        order k, for a k-th order node v_1-...-v_{k} the statistics 
-        of all paths s-v_1-...v_{k-1} -> v_1-...-v_{k} -> v_2-...-v_{k}-d
-        of length two in the k-th order network (i.e. length k+1) in the first-order
-        network will be considered in the calculation.
 
-        @order: The order of nodes for which to calculate betweenness preference
+    def BWPrefMatrix(self, v):
+        """Computes a betweenness preference matrix for a node v
+    
+        @param v: Node for which the betweenness preference matrix shall 
+            be calculated
+        """
+        # create first-order network 
+        g = HigherOrderNetwork(self)
+        
+        indeg = len(g.predecessors[v])
+        outdeg = len(g.successors[v])
+
+        index_succ = {}
+        index_pred = {}
+    
+        B_v = _np.zeros(shape=(indeg, outdeg))
+        
+        # Create an index-to-node mapping for predecessors and successors
+        i = 0
+        for u in g.predecessors[v]:
+            index_pred[u] = i
+            i = i+1
+    
+        i = 0
+        for w in g.successors[v]:
+            index_succ[w] = i
+            i = i+1
+
+        # Calculate entries of betweenness preference matrix
+        for p in self.paths[2]:
+            if p[1] == v:
+                B_v[index_pred[p[0]], index_succ[p[2]]] += self.paths[2][p].sum()
+    
+        return B_v
+
+
+    def __Entropy(prob, K=None, N=None, method='MLE'):
+        """
+        Calculates the entropy of an (observed) probability ditribution
+        based on Maximum Likelihood Estimation (MLE) (default) or using 
+        a Miller correction. 
+
+        @param prob: the observed probabilities
+        @param K: the number of possible outcomes, i.e. outcomes with non-zero probability to be used 
+            for the Miller correction (default None)
+        @param N: number of samples based on which observed probabilities where computed. This
+            is needed for the Miller correaction (default None)
+        @param method: The method to be used to calculate entropy. Can be 'MLE' (default) or 'Miller'
+        """
+
+        if method == 'MLE':
+            idx = _np.nonzero(prob)
+            return -_np.inner( _np.log2(prob[idx]), prob[idx] )
+        elif method == 'Miller':
+            assert K != None and N != None
+            if N == 0:
+                return 0
+            else:
+                idx = _np.nonzero(prob)
+                return -_np.inner( _np.log2(prob[idx]), prob[idx] ) + (K-1)/(2*N)
+
+
+    def BetweennessPreference(self, v, normalized=False, method = 'MLE'):
+        """
+        Calculates the betweenness preferences of a
+        node v based on the mutual information of path 
+        statistics of length two.
 
         @nornalized: whether or not to normalize betweenness preference values
 
@@ -704,9 +769,105 @@ class Paths:
             Liam Paninski: Estimation of Entropy and Mutual Information, Neural Computation 5, 2003 or 
             http://www.nowozin.net/sebastian/blog/estimating-discrete-entropy-part-2.html
         """
-        assert method == 'MLE' or method =='Miller'
-        raise NotImplementedError
+        
+        assert method == 'MLE' or method =='Miller'    
 
+        # If the network is empty, just return zero
+        if len(self.getNodes()) == 0:
+            return 0.0
+
+        # First create the betweenness preference matrix (equation (2) of the paper)
+        B_v = self.BWPrefMatrix(v)
+
+        if B_v.shape[0] == 0 or B_v.shape[1] == 0:
+            return None
+
+        # Normalize matrix (equation (3) of the paper)
+        # NOTE: P_v has the same shape as B_v
+        P_v = _np.zeros(shape=B_v.shape)
+        S = _np.sum(B_v)
+
+        if S>0:
+            P_v = B_v / S
+
+        # Compute marginal probabilities
+        # Marginal probabilities P^v_d = \sum_s'{P_{s'd}}
+        marginal_d = _np.sum(P_v, axis=0)
+
+        # Marginal probabilities P^v_s = \sum_d'{P_{sd'}}
+        marginal_s = _np.sum(P_v, axis=1)        
+
+        if method=='Miller':    
+
+            # total number of samples, i.e. observed two-paths
+            N = _np.sum(B_v)
+
+            #print('N = ', N)        
+            #print('B = ', B_v)
+            #print('marginal_s = ', marginal_s)
+            #print('marginal_d = ', marginal_d)
+
+            # marginal entropy H(S)
+            H_s = Paths.__Entropy(marginal_s, len(marginal_s), N, method='Miller')
+
+            # print('H(S) = ', H_s)
+            # marginal entropy H(D)
+
+            H_d = Paths.__Entropy(marginal_d, len(marginal_d), N, method='Miller')
+
+            #print('H(D) = ', H_d)
+            # we need the conditional entropy H(D|S)
+
+            H_ds = 0
+            for s in range(len(marginal_s)):
+
+                # number of two paths s -> v -> * observed in the data
+                N_s = _np.sum(B_v[s,:])
+
+                #print('N(s=' + str(s) + ') = ' +  str(N_s))
+
+                # probabilities of all destinations, given the particular source s
+                p_ds = B_v[s,:]/_np.sum(B_v[s,:])
+
+                #print('P(D|S=' + str(s) + ') = '+ str(p_ds))
+
+                # number of possible destinations d
+                K_s = len(p_ds)
+
+                #print('K(s=' + str(s) + ') = ' +  str(K_s))
+
+                # marginal_s[s] is the overall probability of source s
+                p_s = marginal_s[s]
+
+                # add to conditional entropy
+                H_ds += p_s * paths.__Entropy(p_ds, K_s, N_s, method='Miller')
+
+            #print('H(D|S) = ', H_ds)
+
+        else: 
+            # use MLE estimation
+            H_s = Paths.__Entropy(marginal_s)
+            H_d = Paths.__Entropy(marginal_d)
+            H_ds = 0
+
+            for s in range(len(marginal_s)):
+                p_ds = P_v[s,:]/_np.sum(P_v[s,:])
+                H_ds += marginal_s[s] * Paths.__Entropy(p_ds)
+
+            # Alternative calculation (without explicit entropies)
+            # build mask for non-zero elements
+            # row, col = np.nonzero(P_v)
+            # pv = P_v[(row,col)]
+            # marginal = np.outer(marginal_s, marginal_d)
+            # log_argument = np.divide( pv, marginal[(row,col)] )    
+            # I = np.dot( pv, np.log2(log_argument) )    
+
+        I = H_d - H_ds
+
+        if normalized:
+            I =  I/_np.min([H_s, H_d])
+
+        return I
 
 
     def getNodes(self):

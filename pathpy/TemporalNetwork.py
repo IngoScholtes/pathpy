@@ -473,3 +473,74 @@ class TemporalNetwork:
                     closeness[name_map[u]] += 1./D[name_map[v], name_map[u]]
 
         return closeness
+
+
+    def exportUnfoldedNetwork(self, filename):
+        """
+        Generates a tex file that can be compiled to a time-unfolded 
+        representation of the temporal network.
+
+        @param filename: the name of the tex file to be generated.
+        """    
+        
+        import os as _os
+
+        output = []
+            
+        output.append('\\documentclass{article}\n')
+        output.append('\\usepackage{tikz}\n')
+        output.append('\\usepackage{verbatim}\n')
+        output.append('\\usepackage[active,tightpage]{preview}\n')
+        output.append('\\PreviewEnvironment{tikzpicture}\n')
+        output.append('\\setlength\PreviewBorder{5pt}%\n')
+        output.append('\\usetikzlibrary{arrows}\n')
+        output.append('\\usetikzlibrary{positioning}\n')
+        output.append('\\begin{document}\n')
+        output.append('\\begin{center}\n')
+        output.append('\\newcounter{a}\n')
+        output.append("\\begin{tikzpicture}[->,>=stealth',auto,scale=0.5, every node/.style={scale=0.9}]\n")
+        output.append("\\tikzstyle{node} = [fill=lightgray,text=black,circle]\n")
+        output.append("\\tikzstyle{v} = [fill=black,text=white,circle]\n")
+        output.append("\\tikzstyle{dst} = [fill=lightgray,text=black,circle]\n")
+        output.append("\\tikzstyle{lbl} = [fill=white,text=black,circle]\n")
+
+        last = ''
+            
+        for n in _np.sort(self.nodes):
+            if last == '':
+                output.append("\\node[lbl]                     (" + n + "-0)   {$" + n + "$};\n")
+            else:
+                output.append("\\node[lbl,right=0.5cm of "+last+"-0] (" + n + "-0)   {$" + n + "$};\n")
+            last = n
+            
+        output.append("\\setcounter{a}{0}\n")
+        output.append("\\foreach \\number in {"+ str(min(self.ordered_times))+ ",...," + str(max(self.ordered_times)+1) + "}{\n")
+        output.append("\\setcounter{a}{\\number}\n")
+        output.append("\\addtocounter{a}{-1}\n")
+        output.append("\\pgfmathparse{\\thea}\n")
+        
+        for n in  _np.sort(self.nodes):
+            output.append("\\node[v,below=0.3cm of " + n + "-\\pgfmathresult]     (" + n + "-\\number) {};\n")
+        output.append("\\node[lbl,left=0.5cm of " + _np.sort(self.nodes)[0] + "-\\number]    (col-\\pgfmathresult) {$t=$\\number};\n")
+        output.append("}\n")
+        output.append("\\path[->,thick]\n")
+        i = 1
+        
+        for ts in self.ordered_times:
+            for edge in self.time[ts]:
+                output.append("(" + edge[0] + "-" + str(ts) + ") edge (" + edge[1] + "-" + str(ts + 1) + ")\n")
+                i += 1                                
+        output.append(";\n")
+        output.append(
+    """\end{tikzpicture}
+    \end{center}
+    \end{document}""")
+        
+        # create directory if necessary to avoid IO errors
+        directory = _os.path.dirname( filename )
+        if directory != '':
+            if not _os.path.exists( directory ):
+                _os.makedirs( directory )
+
+        with open(filename, "w") as tex_file:
+            tex_file.write(''.join(output))

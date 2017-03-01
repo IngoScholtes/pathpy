@@ -129,9 +129,7 @@ t.addEdge("e", "b", 12)
 # This is an isolated edge (i.e. path of length one)
 t.addEdge("e", "b", 13)
 
-# And multiple edges in a single time step, which should result 
-# in two paths of length two
-t.addEdge("g", "e", 14)
+# Path of length two
 t.addEdge("c", "e", 14)
 t.addEdge("e", "f", 15)
 
@@ -149,11 +147,8 @@ t.addEdge("e", "f", 21)
 
 # Extract (time-respecting) paths
 paths = pp.Paths.fromTemporalNetwork(t, delta=1)
+print(paths)
 
-print("Test network has", paths.ObservationCount(), "time-respecting paths")
-assert paths.ObservationCount() == 13, "Extracted wrong number of time-respecting paths"
-
-# TODO: Compute betweenness preference of nodes
-bw = 1.2954618442383219
-
-assert bw == 1.2954618442383219
+print("Test network has", paths.ObservationCount(), "(longest) time-respecting paths")
+assert paths.ObservationCount() == 10, "Extracted wrong number of time-respecting paths"
+assert paths.BetweennessPreference('e') == 1.2954618442383219

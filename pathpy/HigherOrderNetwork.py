@@ -85,8 +85,11 @@ class HigherOrderNetwork:
         ## A dictionary containing edges as well as edge weights
         self.edges = _co.defaultdict( lambda: _np.array([0,0]) )
 
-        ## A dictionary containing the list of successors of all nodes
+        ## A dictionary containing the sets of successors of all nodes
         self.successors = _co.defaultdict( lambda: set() )
+
+        ## A dictionary containing the sets of predecessors of all nodes
+        self.predecessors = _co.defaultdict( lambda: set() )
 
         if k>1: 
             # For k>1 we need the first-order network to generate the null model
@@ -122,6 +125,7 @@ class HigherOrderNetwork:
                 # occurrence of paths of length k as subpath and longest path
                 self.edges[(v,w)] += paths.paths[k][p]
                 self.successors[v].add(w)
+                self.predecessors[w].add(v)
 
             # Note: For all sequences of length k which (i) have never been observed, but (ii) 
             #       do actually represent paths of length k in the first-order network, we 
