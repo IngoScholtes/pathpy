@@ -38,11 +38,15 @@ a collection of pathways (left) and a multi-order graphical representation of th
 
 A [comprehensive educational tutorial](https://ingoscholtes.github.io/pathpy/tutorial.html) which shows how you can use `pathpy` to analyze data on pathways and temporal networks is [available online](https://ingoscholtes.github.io/pathpy/tutorial.html).
 Moreover, a tutorial which illustrates the abstraction of **higher-order networks** in the modeling of dynamical processes in temporal networks is [available here](https://www.sg.ethz.ch/team/people/ischoltes/research-insights/temporal-networks-demo/). The
-latter tutorial is based on the predecessor library `pyTempNets` but most of its features have already been included in `pathpy`.
+latter tutorial is based on the predecessor library [`pyTempNets`](https://github.com/IngoScholtes/pyTempNets). Most of its features have been ported to `pathpy`.
 
 # Documentation
 
 The code is fully documented via docstrings which are accessible through python's built-in help system. Just type `help(SYMBOL_NAME)` to see the documentation of a class or method. A [reference manual is available here](https://ingoscholtes.github.io/pathpy/hierarchy.html).
+
+# Releases and Versioning
+
+The first public beta release of pathpy (released February 17 2017) is [v1.0-beta](https://github.com/IngoScholtes/pathpy/releases/tag/v1.0-beta.1). Following versions are named MAJOR.MINOR.PATCH according to [semantic versioning](http://semver.org/). The date of each release is encoded in the PATCH version.
 
 # Acknowledgements
 
@@ -50,9 +54,9 @@ The research behind this data analysis framework was funded by the Swiss State S
 
 # Contributors
 
-[Ingo Scholtes](http://www.ingoscholtes.net) (project lead, development)  
-Roman Cattaneo (development)  
-Nicolas Wider (testing)  
+[Ingo Scholtes](http://www.ingoscholtes.net) (project lead, development)
+Roman Cattaneo (development)
+Nicolas Wider (testing)
 
 # Copyright
 
