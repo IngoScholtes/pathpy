@@ -36,8 +36,13 @@ class MarkovSequence:
         as a single list of strings
         """
 
+        ## The sequence to be modeled 
         self.sequence = sequence
+
+        ## The transition probabilities of higher-order Markov chains
         self.P = {}
+
+        ## the set of states of higher-order Markov chains
         self.states = {}
         self.states[1] = set(sequence)
 

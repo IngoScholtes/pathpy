@@ -68,12 +68,24 @@ class HigherOrderNetwork:
         assert method == 'FirstOrderTransitions' or method == 'KOrderPi', 'Error: unknown method to build null model'
 
         assert max(paths.paths.keys())>=k, 'Error: constructing a model of order k requires paths of at least length k'
-
+        
+        ## The order of this HigherOrderNetwork
         self.order = k
+
+        ## The paths object used to generate this instance
         self.paths = paths
-        self.nodes = list()
+
+        ## The nodes in this HigherOrderNetwork 
+        self.nodes = []
+
+        ## The separator character used to label higher-order nodes. 
+        ## For separator '-', a second-order node will be 'a-b'.
         self.separator = separator
+
+        ## A dictionary containing edges as well as edge weights
         self.edges = _co.defaultdict( lambda: _np.array([0,0]) )
+
+        ## A dictionary containing the list of successors of all nodes
         self.successors = _co.defaultdict( lambda: set() )
 
         if k>1: 
@@ -198,6 +210,8 @@ class HigherOrderNetwork:
            
             # Degrees of freedom in a higher-order ngram model
             s = g1.vcount()
+
+            ## The degrees of freedom of the higher-order model, under the ngram assumption
             self.dof_ngrams = (s**k)*(s-1)
                  
             # For k>0, the degrees of freedom of a path-based model depend on 
@@ -220,6 +234,8 @@ class HigherOrderNetwork:
             # This can be calculated by counting the number of non-zero elements in the 
             # vector containing the row sums of A**k
             non_zero = _np.count_nonzero((A**k).sum(axis=0))
+
+            ## The degrees of freedom of the higher-order model, under the paths assumption
             self.dof_paths = paths_k - non_zero
 
 
@@ -245,7 +261,10 @@ class HigherOrderNetwork:
         """
         Helper function that transforms a node in a
         higher-order network of order k into a corresponding 
-        path of length k-1
+        path of length k-1. For a higher-order node 'a-b-c-d' 
+        this function will return ('a','b','c','d')
+
+        @param node: The higher-order node to be transformed to a path.
         """
 
         return tuple(node.split(self.separator))
@@ -438,11 +457,24 @@ class HigherOrderNetwork:
 
         Log.add('finished.', Severity.INFO)
 
-        return node_centralities
+        return node_centralities    
 
 
     def EvCent(self, projection='scaled', includeSubPaths=True):
+        """
+        Calculates the eigenvector centralities of higher-order nodes. If 
+        the order of the HigherOrderNetwork is larger than one, the centralities
+        will be projected to the first-order nodes. 
 
+        @param projection: Indicates how the projection from k-th-order nodes (v1, v2, ... , v{k-1})
+            shall be performed. For the method 'all', the eigenvector centrality of the higher-order node 
+            will be added to *all* first-order nodes on the path corresponding to the higher-order node. For 
+            the method 'last', the centrality of the higher-order node will only be assigned to *last* 
+            first-order node v{k-1}. For the method 'scaled' (default), the eigenvector centrality of higher-order 
+            nodes will be assigned proportionally to first-order nodes, i.e. each of the three nodes in the 
+            third-order node (a,b,c) will receive one third of the eigenvector centrality of (a,b,c).
+        @param includeSubPaths: whether or not to include subpath statistics in the calculation (default True)
+        """
         A = self.getAdjacencyMatrix(includeSubPaths=includeSubPaths, weighted=False, transposed=True)
 
         # calculate leading eigenvector of A
@@ -496,10 +528,13 @@ class HigherOrderNetwork:
         nodes.
 
         @param projection: Indicates how the projection from k-th-order nodes (v1, v2, ... , v{k-1})
-            shall be performed. For the default method 'all', the pagerank value of the higher-order node 
+            shall be performed. For the method 'all', the pagerank value of the higher-order node 
             will be added to *all* first-order nodes on the path corresponding to the higher-order node. For 
             the method 'last', the PR value of the higher-order node will only be assigned to *last* 
-            first-order node v{k-1}.
+            first-order node v{k-1}. For the method 'scaled' (default), the PageRank of higher-order 
+            nodes will be assigned proportionally to first-order nodes, i.e. each of the three nodes in the 
+            third-order node (a,b,c) will receive one third of the PageRank of (a,b,c).
+        @param includeSubpaths: whether or not to use subpath statistics in the PageRank calculation
         """
 
         assert projection == 'all' or projection == 'last' or projection == 'first' or projection == 'scaled', 'Invalid projection method'
@@ -580,7 +615,16 @@ class HigherOrderNetwork:
 
 
     def HigherOrderPathToFirstOrder(self, path):
+        """
+        Maps a path in the higher-order network 
+        to a path in the first-order network. As an 
+        example, the second-order path ('a-b', 'b-c', 'c-d')
+        of length two is mapped to the first-order path ('a','b','c','d')
+        of length four. In general, a path of length l in a network of 
+        order k is mapped to a path of length l+k-1 in the first-order network. 
 
+        @param path: The higher-order path that shall be mapped to the first-order network
+        """
         p1 = self.HigherOrderNodeToPath(path[0])
         for x in path[1:]:
             p1 += (self.HigherOrderNodeToPath(x)[-1],)
@@ -594,6 +638,9 @@ class HigherOrderNetwork:
         centralities calculated based on the higher-order 
         topology will automatically be projected back to first-order 
         nodes.
+
+        @param normalized: If set to True, betweenness centralities of 
+            nodes will be scaled by the maximum value (default False)
         """
 
         shortest_paths = self.getShortestPaths()
@@ -805,7 +852,10 @@ class HigherOrderNetwork:
     def getTransitionMatrix(self, includeSubPaths=True):
         """
         Returns a (transposed) random walk transition matrix 
-        corresponding to the higher-order network    
+        corresponding to the higher-order network.
+
+        @param includeSubpaths: whether or not to include subpath statistics in the 
+            transition probability calculation (default True)
         """
         row = []
         col = []
@@ -868,7 +918,10 @@ class HigherOrderNetwork:
 
     def getLaplacianMatrix(self, includeSubPaths=True):
         """
-        Returns the transposed Laplacian matrix corresponding to the higher-order network.                
+        Returns the transposed Laplacian matrix corresponding to the higher-order network.
+
+        @param includeSubpaths: Whether or not subpath statistics shall be included in the 
+            calculation of matrix weights
         """   
     
         T = self.getTransitionMatrix(includeSubPaths)
@@ -879,7 +932,10 @@ class HigherOrderNetwork:
 
     def getEigenValueGap(self, includeSubPaths=True, lanczosVecs = 15, maxiter = 20):
         """
-        Returns the eigenvalue gap of the transition matrix    
+        Returns the eigenvalue gap of the transition matrix.
+
+        @param includeSubPaths: whether or not to include subpath statistics in the 
+            calculation of transition probabilities.
         """
     
         #NOTE to myself: most of the time goes for construction of the 2nd order
@@ -899,34 +955,7 @@ class HigherOrderNetwork:
         
         Log.add('finished.', Severity.INFO)
     
-        return _np.abs(evals2_sorted[1])
-
-
-    def evcent(self, normalized=True):
-        """
-        Computes eigenvector centralities of nodes in the higher-order network. 
-        If order>1, centralities are aggregated to obtain the eigenvector centrality 
-        of first-order nodes (but based on the higher-order model).
-        """                                
-    
-        # Compute eigenvector centrality in higher-order network
-        A = self.getAdjacencyMatrix(weighted = True, transposed = True)
-        evcent_k = HigherOrderNetwork.getLeadingEigenvector(A, normalized = False )
-    
-        # Aggregate to obtain centralities of first-order nodes ...
-        if order>1:
-            evcent_1 = np.zeros(self.vcount())
-            for i in range(len(evcent_k)):
-                # Get name of target node
-                target = self.nodes()[i]["name"].split(self.separator)[self.order]
-                evcent_1[self.nodes.index(target)] += _np.real(evcent_k[i])
-        else:
-            evcent_1 = evcent_k
-    
-        if normalized:
-            return _np.real(evcent_1/sum(evcent_1))
-        else:
-            return _np.real(evcent_1)
+        return _np.abs(evals2_sorted[1])    
 
 
     def getFiedlerVectorSparse(self, normalized = True, lanczosVecs = 15, maxiter = 20):

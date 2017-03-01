@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -104,8 +104,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad519d020de268ea49898e7520be4ffcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab457e7e3f439e193410be707a2cd39bd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpathpy_1_1Paths_1_1Paths.html#ab457e7e3f439e193410be707a2cd39bd">getSequence</a></td></tr>
 <tr class="separator:ab457e7e3f439e193410be707a2cd39bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc152a2783167b289326e528f0077951"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afc152a2783167b289326e528f0077951"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>getUniquePaths</b></td></tr>
+<tr class="memitem:afc152a2783167b289326e528f0077951"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpathpy_1_1Paths_1_1Paths.html#afc152a2783167b289326e528f0077951">getUniquePaths</a></td></tr>
 <tr class="separator:afc152a2783167b289326e528f0077951"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdbe49d3727f7fd3022899cb3130c6db"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpathpy_1_1Paths_1_1Paths.html#afdbe49d3727f7fd3022899cb3130c6db">__str__</a></td></tr>
 <tr class="separator:afdbe49d3727f7fd3022899cb3130c6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,11 +152,12 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aacbff90d31fabf41c2413246aafc8275"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aacbff90d31fabf41c2413246aafc8275"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>paths</b></td></tr>
+<tr class="memitem:aacbff90d31fabf41c2413246aafc8275"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpathpy_1_1Paths_1_1Paths.html#aacbff90d31fabf41c2413246aafc8275">paths</a></td></tr>
+<tr class="memdesc:aacbff90d31fabf41c2413246aafc8275"><td class="mdescLeft">&#160;</td><td class="mdescRight">A dictionary of paths that has the following structure:  <a href="#aacbff90d31fabf41c2413246aafc8275">More...</a><br/></td></tr>
 <tr class="separator:aacbff90d31fabf41c2413246aafc8275"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0642d710d46cf929c00f22ed53510d92"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0642d710d46cf929c00f22ed53510d92"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>separator</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpathpy_1_1Paths_1_1Paths.html#a0642d710d46cf929c00f22ed53510d92">separator</a></td></tr>
+<tr class="memdesc:a0642d710d46cf929c00f22ed53510d92"><td class="mdescLeft">&#160;</td><td class="mdescRight">The character used to separate nodes on paths. <br/></td></tr>
 <tr class="separator:a0642d710d46cf929c00f22ed53510d92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -293,8 +293,14 @@ this Paths instance
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Adds a tuple of elements as a path
-if the elements are not strings, a conversion 
+<pre class="fragment">Adds a tuple of elements as a path. If the elements are not strings, 
+a conversion to strings will be made. This function can be used to 
+to set custom subpath statistics, via the frequency tuple (see below).
+
+@path: The path tuple to be added, e.g. ('a', 'b', 'c')
+@expandSubPaths: Whether or not to calculate subpath statistics for this path
+@frequency: A tuple (x,y) indicating the frequency of this path as subpath 
+    (first component) and longest path (second component). Default is (0,1).
 </pre> 
 </div>
 </div>
@@ -467,14 +473,15 @@ two will be counted.
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Returns a new paths object containing only paths between nodes in a given 
-filter set. For each of the paths in the current Paths object,
-the set of maximally contained subpaths between nodes in node_filter is extracted.
+<pre class="fragment">Returns a new paths object which contains only paths between nodes in a given 
+filter set. For each of the paths in the current Paths object, the set of maximally 
+contained subpaths between nodes in node_filter is extracted. This method is useful 
+when studying (sub-)paths passing through a subset of nodes.
 
 @param node_filter: the nodes for which paths with be extracted from the current
     set of paths
-@param minLength: the minimum length of paths to extract
-@param maxLength: the maximum length of paths to extracr
+@param minLength: the minimum length of paths to extract (default 0)
+@param maxLength: the maximum length of paths to extract (default sys.maxsize)
 </pre> 
 </div>
 </div>
@@ -560,12 +567,13 @@ this function will simply return the statistics of time-stamped edges.
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Returns maximum-length sub-paths of p which
-only contain nodes given in the node_filter
+<pre class="fragment">Returns the set of maximum-length sub-paths of the path p, which
+only contain nodes that appear in the node_filter. As an example, 
+for the path (a,b,c,d,e,f,g) and a node_filter [a,b,d,f,g], the method 
+will return [(a,b), (d,), (f,g)].
 
-@param p: a path tuple to check for contained paths, e.g. (a, b, c, d, e, f, g)
-@param node_filter: a set of nodes limiting the contained paths, e.g. [a,b,d,f,g]
-    For the example above, this method will return [(a,b), (d,), (f,g)]
+@param p: a path tuple to check for contained paths
+@param node_filter: a set of nodes to which the contained paths should be limited
 </pre> 
 </div>
 </div>
@@ -677,7 +685,9 @@ set of paths
 </div><div class="memdoc">
 <pre class="fragment">Returns a single sequence in which all 
 paths have been concatenated. Individual 
-paths can be separated by a stop character.
+paths are separated by a stop character.
+
+@stopchar: The character used to separate paths
 </pre> 
 </div>
 </div>
@@ -742,6 +752,36 @@ based on the observed paths.
 </pre> 
 </div>
 </div>
+<a class="anchor" id="afc152a2783167b289326e528f0077951"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pathpy.Paths.Paths.getUniquePaths </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>l</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the number of unique paths up to a given length l. For the default 
+value of l=-1 paths of any length will be counted. 
+
+@param l: the (inclusive) maximum length up to which path shall be counted. 
+</pre> 
+</div>
+</div>
 <a class="anchor" id="a4b4e13eb898dd55b9c1a381eaf22aea9"></a>
 <div class="memitem">
 <div class="memproto">
@@ -784,10 +824,12 @@ based on the observed paths.
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Returns a new path object in which nodes have been mapped to different labels
-given by an arbitrary mapping function. This can be used, e.g., to map page click streams 
-to topic streams, based on a mapping from pages to topics
+given by an arbitrary mapping function. For instance, for the mapping 
+{'a': 'x', 'b': 'x', 'c': 'y', 'd': 'y'} the path (a,b,c,d) is mapped to 
+(x,x,y,y). This is useful, e.g., to map page page click streams to topic 
+click streams, using a mapping from pages to topics.
 
-@param mapping: a dictionary, mapping nodes to labels
+@param mapping: a dictionary that maps nodes to the new labels
 </pre> 
 </div>
 </div>
@@ -961,13 +1003,32 @@ captured by PageRank applied to a graphical abstraction of the paths.
 </pre> 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="aacbff90d31fabf41c2413246aafc8275"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pathpy.Paths.Paths.paths</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A dictionary of paths that has the following structure: </p>
+<ul>
+<li>paths[k] is a dictionary containing all paths of length k, indexed by a path tuple p = (u,v,w,...)</li>
+<li>for each tuple p of length k, paths[k][p] contains a tuple (i,j) where i refers to the number of times p occurs as a subpath of a longer path, and j refers to the number of times p occurs as a <em>real</em> or <em>longest</em> path (i.e. not being a subpath of a longer path) </li>
+</ul>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/mnt/c/Users/ingos/Desktop/pathpy/pathpy/Paths.py</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 22 2017 18:04:39 for pathpy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 1 2017 10:39:09 for pathpy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

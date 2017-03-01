@@ -29,5 +29,6 @@ var searchData=
   ['gettemporalbetweennessinstantaneous',['GetTemporalBetweennessInstantaneous',['../classpathpy_1_1TemporalNetwork_1_1TemporalNetwork.html#aa6a91612301e802d287f1fb58fe31961',1,'pathpy::TemporalNetwork::TemporalNetwork']]],
   ['gettemporalcloseness',['GetTemporalCloseness',['../classpathpy_1_1TemporalNetwork_1_1TemporalNetwork.html#a9dd08ea1ab218cb69b2fdd56cbcab61f',1,'pathpy::TemporalNetwork::TemporalNetwork']]],
   ['gettemporalclosenessinstantaneous',['GetTemporalClosenessInstantaneous',['../classpathpy_1_1TemporalNetwork_1_1TemporalNetwork.html#ac73ea9fa5c13c1df5ac101d45473243d',1,'pathpy::TemporalNetwork::TemporalNetwork']]],
-  ['gettransitionmatrix',['getTransitionMatrix',['../classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#a20c4a62ca4706bdab81534332e3843fe',1,'pathpy::HigherOrderNetwork::HigherOrderNetwork']]]
+  ['gettransitionmatrix',['getTransitionMatrix',['../classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#a20c4a62ca4706bdab81534332e3843fe',1,'pathpy::HigherOrderNetwork::HigherOrderNetwork']]],
+  ['getuniquepaths',['getUniquePaths',['../classpathpy_1_1Paths_1_1Paths.html#afc152a2783167b289326e528f0077951',1,'pathpy::Paths::Paths']]]
 ];

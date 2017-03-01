@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['readedges',['readEdges',['../classpathpy_1_1Paths_1_1Paths.html#adba5db911e0be900c03908f8b2ca511e',1,'pathpy::Paths::Paths']]],
-  ['readfile',['readFile',['../classpathpy_1_1Paths_1_1Paths.html#a349974504cf0ef9fd1ff97a0249e649e',1,'pathpy.Paths.Paths.readFile()'],['../classpathpy_1_1TemporalNetwork_1_1TemporalNetwork.html#a54bf4b554d7ca2a45a49cc76a0080cea',1,'pathpy.TemporalNetwork.TemporalNetwork.readFile()']]],
-  ['reducetogcc',['reduceToGCC',['../classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#a4b71eed8268df33814725ae7832729e6',1,'pathpy::HigherOrderNetwork::HigherOrderNetwork']]]
+  ['observationcount',['ObservationCount',['../classpathpy_1_1Paths_1_1Paths.html#a4b4e13eb898dd55b9c1a381eaf22aea9',1,'pathpy::Paths::Paths']]],
+  ['order',['order',['../classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#a6dea6fe6e34178adb395ad8e79403d5c',1,'pathpy::HigherOrderNetwork::HigherOrderNetwork']]],
+  ['ordered_5ftimes',['ordered_times',['../classpathpy_1_1TemporalNetwork_1_1TemporalNetwork.html#a051e7d352da3d194387762134bd70992',1,'pathpy::TemporalNetwork::TemporalNetwork']]],
+  ['output_5fstream',['output_stream',['../classpathpy_1_1Log_1_1Log.html#a8f7664b2a5379f9e94402117e22ed058',1,'pathpy::Log::Log']]]
 ];

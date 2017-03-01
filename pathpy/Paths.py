@@ -33,12 +33,14 @@ class Paths:
         Creates an empty Paths object
         """
 
-        # the meanining of the paths dictionary is as follows: 
-        # - paths[k] is a dictionary containing all paths of length k, indexed by a path tuple p = (u,v,w,...)
-        # - for each tuple p of length k, paths[k][p] contains a tuple (i,j) where i refers to the number 
-        #       of times p occurs as a subpath of a longer path, and j refers to the number of times p
-        #       occurs as a *real* or *longest* path (i.e. not being a subpath of a longer path)
+        ## A dictionary of paths that has the following structure:
+        ## - paths[k] is a dictionary containing all paths of length k, indexed by a path tuple p = (u,v,w,...)
+        ## - for each tuple p of length k, paths[k][p] contains a tuple (i,j) where i refers to the number 
+        ##       of times p occurs as a subpath of a longer path, and j refers to the number of times p
+        ##       occurs as a *real* or *longest* path (i.e. not being a subpath of a longer path)
         self.paths = _co.defaultdict( lambda: _co.defaultdict( lambda: _np.array([0,0]) ))
+
+        ## The character used to separate nodes on paths
         self.separator = ','
 
 
@@ -77,7 +79,7 @@ class Paths:
                 sum += self.paths[k][p].sum()          
                 spsum += self.paths[k][p][0]
                 lpsum += self.paths[k][p][1]
-            summary += 'Paths of length k = ' + str(k) + '\t\t' + str(lpsum) + ' (' + str(self.getUniquePaths(l=k, considerLongerPaths=False)) + '/' + str(spsum) + '/'+ str(sum) +  ')\n'
+            summary += 'Paths of length k = ' + str(k) + '\t\t' + str(lpsum) + ' (' + str(self.getUniquePaths(l=k)) + '/' + str(spsum) + '/'+ str(sum) +  ')\n'
         return summary
 
 
@@ -85,7 +87,9 @@ class Paths:
         """
         Returns a single sequence in which all 
         paths have been concatenated. Individual 
-        paths can be separated by a stop character.
+        paths are separated by a stop character.
+
+        @stopchar: The character used to separate paths
         """
 
         Log.add('Concatenating paths to sequence ...')
@@ -105,11 +109,18 @@ class Paths:
         return sequence
 
 
-    def getUniquePaths(self, l=0, considerLongerPaths=True):
+    def getUniquePaths(self, l=-1):
+        """
+        Returns the number of unique paths up to a given length l. For the default 
+        value of l=-1 paths of any length will be counted. 
+
+        @param l: the (inclusive) maximum length up to which path shall be counted. 
+        """
         L = 0
-        lmax = l
-        if considerLongerPaths:
+        if l < 0:
             lmax = max(self.paths)
+        else:
+            lmax = l
         for j in range(l, lmax+1):
             for p in self.paths[j]:
                 if self.paths[j][p][1]>0:
@@ -415,8 +426,14 @@ class Paths:
 
     def addPathTuple(self, path, expandSubPaths=True, frequency=(0,1)):
         """
-        Adds a tuple of elements as a path
-        if the elements are not strings, a conversion 
+        Adds a tuple of elements as a path. If the elements are not strings, 
+        a conversion to strings will be made. This function can be used to 
+        to set custom subpath statistics, via the frequency tuple (see below).
+
+        @path: The path tuple to be added, e.g. ('a', 'b', 'c')
+        @expandSubPaths: Whether or not to calculate subpath statistics for this path
+        @frequency: A tuple (x,y) indicating the frequency of this path as subpath 
+            (first component) and longest path (second component). Default is (0,1).
         """
         
         assert len(path)>0, 'Error: paths needs to contain at least one element'        
@@ -444,12 +461,13 @@ class Paths:
 
     def getContainedPaths(p, node_filter):
         """
-        Returns maximum-length sub-paths of p which
-        only contain nodes given in the node_filter
+        Returns the set of maximum-length sub-paths of the path p, which
+        only contain nodes that appear in the node_filter. As an example, 
+        for the path (a,b,c,d,e,f,g) and a node_filter [a,b,d,f,g], the method 
+        will return [(a,b), (d,), (f,g)].
 
-        @param p: a path tuple to check for contained paths, e.g. (a, b, c, d, e, f, g)
-        @param node_filter: a set of nodes limiting the contained paths, e.g. [a,b,d,f,g]
-            For the example above, this method will return [(a,b), (d,), (f,g)]
+        @param p: a path tuple to check for contained paths
+        @param node_filter: a set of nodes to which the contained paths should be limited
         """
         contained_paths = []
         current_path = ()
@@ -468,14 +486,15 @@ class Paths:
 
     def filterPaths(self, node_filter, minLength=0, maxLength=sys.maxsize):
         """
-        Returns a new paths object containing only paths between nodes in a given 
-        filter set. For each of the paths in the current Paths object,
-        the set of maximally contained subpaths between nodes in node_filter is extracted.
+        Returns a new paths object which contains only paths between nodes in a given 
+        filter set. For each of the paths in the current Paths object, the set of maximally 
+        contained subpaths between nodes in node_filter is extracted. This method is useful 
+        when studying (sub-)paths passing through a subset of nodes.
 
         @param node_filter: the nodes for which paths with be extracted from the current
             set of paths
-        @param minLength: the minimum length of paths to extract
-        @param maxLength: the maximum length of paths to extracr
+        @param minLength: the minimum length of paths to extract (default 0)
+        @param maxLength: the maximum length of paths to extract (default sys.maxsize)
         """                
     
         p = Paths()
@@ -495,10 +514,12 @@ class Paths:
     def projectPaths(self, mapping):
         """
         Returns a new path object in which nodes have been mapped to different labels
-        given by an arbitrary mapping function. This can be used, e.g., to map page click streams 
-        to topic streams, based on a mapping from pages to topics
+        given by an arbitrary mapping function. For instance, for the mapping 
+        {'a': 'x', 'b': 'x', 'c': 'y', 'd': 'y'} the path (a,b,c,d) is mapped to 
+        (x,x,y,y). This is useful, e.g., to map page page click streams to topic 
+        click streams, using a mapping from pages to topics.
         
-        @param mapping: a dictionary, mapping nodes to labels
+        @param mapping: a dictionary that maps nodes to the new labels
         """
         p = Paths()
         for l in self.paths:

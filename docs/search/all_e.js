@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['setminseverity',['setMinSeverity',['../classpathpy_1_1Log_1_1Log.html#a9e0171144845116732949b87d348d27d',1,'pathpy::Log::Log']]],
-  ['setoutputstream',['setOutputStream',['../classpathpy_1_1Log_1_1Log.html#a0e7ec3decada72adee6edcda4951e720',1,'pathpy::Log::Log']]],
-  ['severity',['Severity',['../classpathpy_1_1Log_1_1Severity.html',1,'pathpy::Log']]],
-  ['shuffleedges',['ShuffleEdges',['../classpathpy_1_1TemporalNetwork_1_1TemporalNetwork.html#a50ea38c4325e1035966c4d2173599a1d',1,'pathpy::TemporalNetwork::TemporalNetwork']]],
-  ['summary',['summary',['../classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#ab35dd7f65e3bfeb280fcd38c1e7448f7',1,'pathpy.HigherOrderNetwork.HigherOrderNetwork.summary()'],['../classpathpy_1_1MultiOrderModel_1_1MultiOrderModel.html#a58f11a90bea210c70f12eeac3af53d65',1,'pathpy.MultiOrderModel.MultiOrderModel.summary()'],['../classpathpy_1_1Paths_1_1Paths.html#ad519d020de268ea49898e7520be4ffcf',1,'pathpy.Paths.Paths.summary()'],['../classpathpy_1_1TemporalNetwork_1_1TemporalNetwork.html#a39d2b3a872f2a19554ee505393a6f708',1,'pathpy.TemporalNetwork.TemporalNetwork.summary()']]]
+  ['p',['P',['../classpathpy_1_1MarkovSequence_1_1MarkovSequence.html#ac0d2ff028f2c2c88349555527e44a898',1,'pathpy::MarkovSequence::MarkovSequence']]],
+  ['pagerank',['PageRank',['../classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#abc76633f53a0747353e7ab0e15744d94',1,'pathpy::HigherOrderNetwork::HigherOrderNetwork']]],
+  ['paths',['Paths',['../classpathpy_1_1Paths_1_1Paths.html',1,'pathpy::Paths']]],
+  ['paths',['paths',['../classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#ac4c8ee9f7775478793d88680d6f99fc8',1,'pathpy.HigherOrderNetwork.HigherOrderNetwork.paths()'],['../classpathpy_1_1MultiOrderModel_1_1MultiOrderModel.html#adf751f249355e9a26e8062050567cf54',1,'pathpy.MultiOrderModel.MultiOrderModel.paths()'],['../classpathpy_1_1Paths_1_1Paths.html#aacbff90d31fabf41c2413246aafc8275',1,'pathpy.Paths.Paths.paths()']]],
+  ['pathtohigherordernodes',['pathToHigherOrderNodes',['../classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#a117fe621fb02d356f6591620f9340eaa',1,'pathpy::HigherOrderNetwork::HigherOrderNetwork']]],
+  ['projectpaths',['projectPaths',['../classpathpy_1_1Paths_1_1Paths.html#a160fb269d25c24adc4fbfdc3df71075c',1,'pathpy::Paths::Paths']]]
 ];

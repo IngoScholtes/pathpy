@@ -24,39 +24,40 @@ class TemporalNetwork:
 
     def __init__(self, tedges = None):
         """
-        Constructor generating a temporal network instance
+        Constructor that generates a temporal network instance. 
         
         @param tedges: an optional list of (possibly unordered time-stamped) links 
-            from which to construct a temporal network instance        
+            from which to construct a temporal network instance. For the default value None        
+            an empty temporal network will be created.
         """
 
-        self.tedges = []
-        nodes_seen = _co.defaultdict( lambda:False )
+        ## A list of time-stamped edges of this temporal network
+        self.tedges = []        
+
+        ## A list of nodes of this temporal network
         self.nodes = []
 
-        # Generate index structures which help to efficiently extract time-respecting paths
-
-        # A dictionary storing all time-stamped links, indexed by time-stamps
+        ## A dictionary storing all time-stamped links, indexed by time-stamps
         self.time = _co.defaultdict( lambda: list() )
 
-        # A dictionary storing all time-stamped links, indexed by time and target node
+        ## A dictionary storing all time-stamped links, indexed by time and target node
         self.targets = _co.defaultdict( lambda: dict() )
 
-        # A dictionary storing all time-stamped links, indexed by time and source node 
+        ## A dictionary storing all time-stamped links, indexed by time and source node 
         self.sources = _co.defaultdict( lambda: dict() )
 
-        # A dictionary storing time stamps at which links (v,*;t) originate from node v
+        ## A dictionary storing time stamps at which links (v,*;t) originate from node v
         self.activities = _co.defaultdict( lambda: list() )
 
-        # A dictionary storing sets of time stamps at which links (v,*;t) originate from node v
-        # Note that the insertion into a set is much faster than repeatedly checking whether 
-        # an element already exists in a list!
+        ## A dictionary storing sets of time stamps at which links (v,*;t) originate from node v
+        ## Note that the insertion into a set is much faster than repeatedly checking whether 
+        ## an element already exists in a list!
         self.activities_sets = _co.defaultdict( lambda: set() )
 
-        # An ordered list of time-stamps
-        self.ordered_times = []
+        ## An ordered list of time-stamps
+        self.ordered_times = []        
 
-        self.tedges = []
+        nodes_seen = _co.defaultdict( lambda:False )
 
         if tedges is not None:
             Log.add('Building index data structures ...')
@@ -81,10 +82,28 @@ class TemporalNetwork:
             Log.add('finished.')
 
 
-
-    def readFile(filename='', sep=',', timestampformat="%s", maxlines=_sys.maxsize):
+    @staticmethod
+    def readFile(filename, sep=',', timestampformat="%Y-%m-%d %H:%M", maxlines=_sys.maxsize):
         """ Reads time-stamped links from a file and returns a new instance 
-            of the class TemporalNetwork
+            of the class TemporalNetwork. The file is assumed to have a header 
+
+                source target time 
+
+            where columns can be in arbitrary order and separated by arbitrary characters. 
+            Each time-stamped link must occur in a separate line and links are assumed to be
+            directed.
+             
+            The time column can be omitted and in this case all links are assumed to occur 
+            in consecutive time stamps (that have a distance of one). Time stamps can be simple 
+            integers, or strings to be converted to UNIX time stamps via a custom timestamp format. 
+            For this, the python function datetime.strptime will be used. 
+
+            @param sep: the character that separates columns 
+            @param filename: path of the file to read from
+            @param timestampformat: used to convert string timestamps to UNIX timestamps. This parameter is 
+                ignored, if the timestamps are digit types (like a simple int).
+            @param maxlines: limit reading of file to certain number of lines, default sys.maxsize
+
         """
         assert (filename != ''), 'Empty filename given'
         
@@ -124,11 +143,12 @@ class TemporalNetwork:
                 fields = line.rstrip().split(sep)
                 try:
                     if time_ix >=0:
-                        timestamp = fields[time_ix]            
+                        timestamp = fields[time_ix]
+                        # if the timestamp is a number, we use this 
                         if timestamp.isdigit():
                             t = int(timestamp)
-                        else:
-                            x = _dt.datetime.strptime(timestamp, "%Y-%m-%d %H:%M")
+                        else:   # if it is a string, we use the timestamp format to convert it to a UNIX timestamp                                
+                            x = _dt.datetime.strptime(timestamp, timestampformat)
                             t = int(time.mktime(x.timetuple()))
                     else:
                         t = n                
@@ -171,7 +191,7 @@ class TemporalNetwork:
         """Adds a directed time-stamped edge (source,target;time) to the temporal network. To add an undirected 
             time-stamped link (u,v;t) at time t, please call addEdge(u,v;t) and addEdge(v,u;t).
         
-        @param source: naem of the source node of a directed, time-stamped link
+        @param source: name of the source node of a directed, time-stamped link
         @param target: name of the target node of a directed, time-stamped link
         @param ts: (integer) time-stamp of the time-stamped link
         """
@@ -197,8 +217,8 @@ class TemporalNetwork:
 
     def vcount(self):
         """
-        Returns the total number of different vertices active across the whole evolution of the 
-        temporal network. This number corresponds to the number of nodes in the (first-order) 
+        Returns the number of vertices in the temporal network. 
+        This number corresponds to the number of nodes in the (first-order) 
         time-aggregated network.
         """
 
@@ -207,7 +227,9 @@ class TemporalNetwork:
         
     def ecount(self):
         """
-        Returns the number of time-stamped edges (u,v;t)
+        Returns the number of time-stamped edges (u,v;t) in the temporal network.
+        This number corresponds to the sum of link weights in the (first-order)
+        time-aggregated network.
         """
 
         return len(self.tedges)
@@ -215,7 +237,7 @@ class TemporalNetwork:
 
     def getObservationLength(self):
         """
-        Returns the length of the observation time.
+        Returns the length of the observation time in time units.
         """
 
         return max(self.ordered_times)-min(self.ordered_times)
@@ -223,7 +245,7 @@ class TemporalNetwork:
 
     def getInterEventTimes(self):
         """
-        Returns a numpy array containing all time differences between any 
+        Returns an array containing all time differences between any 
         two consecutive time-stamped links (involving any node)
         """
 
@@ -281,7 +303,7 @@ class TemporalNetwork:
     def __str__(self):
         """
         Returns the default string representation of 
-        this temporal network instance
+        this temporal network instance.
         """
         return self.summary()
    
@@ -295,6 +317,7 @@ class TemporalNetwork:
         @param l: the length of the sequence to be generated (i.e. the number of time-stamped links.
             For the default value l=0, the length of the generated shuffled temporal network will be 
             equal to that of the original temporal network. 
+        @param with_replacement: Whether or not the sampling should be with replacement (default False)
         """
 
         tedges = []        

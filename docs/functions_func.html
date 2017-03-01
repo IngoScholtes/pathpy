@@ -70,6 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="functions.html"><span>All</span></a></li>
       <li class="current"><a href="functions_func.html"><span>Functions</span></a></li>
+      <li><a href="functions_vars.html"><span>Variables</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
@@ -98,7 +99,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -178,8 +179,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classpathpy_1_1MarkovSequence_1_1MarkovSequence.html#a0e794225267c8195f091f5ed452d34e6">pathpy.MarkovSequence.MarkovSequence</a>
 , <a class="el" href="classpathpy_1_1MultiOrderModel_1_1MultiOrderModel.html#a866b2b0b96f4bafa594b2a8d5a64efbf">pathpy.MultiOrderModel.MultiOrderModel</a>
 </li>
-<li>evcent()
-: <a class="el" href="classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#a608108241f9aa06f1027d9ab84f79a65">pathpy.HigherOrderNetwork.HigherOrderNetwork</a>
+<li>EvCent()
+: <a class="el" href="classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#a57e8494220dd4a5b2a9a45de17f9d26a">pathpy.HigherOrderNetwork.HigherOrderNetwork</a>
 </li>
 <li>expandSubPaths()
 : <a class="el" href="classpathpy_1_1Paths_1_1Paths.html#a6e1941415a937fa9aa86b6b442f858e1">pathpy.Paths.Paths</a>
@@ -300,12 +301,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>getTransitionMatrix()
 : <a class="el" href="classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#a20c4a62ca4706bdab81534332e3843fe">pathpy.HigherOrderNetwork.HigherOrderNetwork</a>
 </li>
+<li>getUniquePaths()
+: <a class="el" href="classpathpy_1_1Paths_1_1Paths.html#afc152a2783167b289326e528f0077951">pathpy.Paths.Paths</a>
+</li>
 </ul>
 
 
 <h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
 <li>HigherOrderNodeToPath()
 : <a class="el" href="classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#a1963d0e4370e3818de3cf6886bba8594">pathpy.HigherOrderNetwork.HigherOrderNetwork</a>
+</li>
+<li>HigherOrderPathToFirstOrder()
+: <a class="el" href="classpathpy_1_1HigherOrderNetwork_1_1HigherOrderNetwork.html#ab71b78f1c9ffe7a06364841572f1fee2">pathpy.HigherOrderNetwork.HigherOrderNetwork</a>
 </li>
 </ul>
 
@@ -392,7 +399,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 22 2017 18:04:40 for pathpy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 1 2017 10:39:10 for pathpy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -16,10 +16,20 @@ class Severity(enum.IntEnum):
         the severity of log messages, and which can be 
         used tpo filter messages based on severities.
     """
+
+    ## Error messages 
     ERROR = 4
+
+    ## Warning messages
     WARNING = 3
+
+    ## Informational messages (default minimum level)
     INFO = 2
+
+    ## Messages regarding timing and performance
     TIMING = 1
+
+    ## Debug messages (really verbose)
     DEBUG = 0
 
 
@@ -28,7 +38,10 @@ class Log:
         be recorded in the output, and where these message should be directed.
     """
 
+    ## the output stream to which log entries will be written
     output_stream = sys.stdout
+
+    ## The minimum severity level of messages to be logged
     min_severity  = Severity.INFO
 
 

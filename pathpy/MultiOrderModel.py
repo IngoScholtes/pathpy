@@ -34,12 +34,24 @@ class MultiOrderModel:
     def __init__(self, paths, maxOrder=1):
         """
         Generates a hierarchy of higher-order
-        models for the given path statistics.
+        models for the given path statistics, 
+        up to a given maximum order 
+
+        @param paths: the paths instance for which the model should be created 
+        @param maxOrder: the maximum order of the multi-order model
         """
-    
+        
+        ## A dictionary containing the layers of HigherOrderNetworks, where 
+        ## layers[k] contains the network of order k
         self.layers = {}
+
+        ## the maximum order of this multi-order model
         self.maxOrder = maxOrder
+
+        ## the paths object from which this multi-order model was created 
         self.paths = paths
+
+        ## a dictionary of transition matrices for all layers of the model
         self.T = {}
 
         for k in range(maxOrder+1):
@@ -115,12 +127,10 @@ class MultiOrderModel:
 
     def factorial(self, n, log=True):
         """
-        Caclulates (or approximates) the (log of the) factorial n!
+        Caclulates (or approximates) the (log of the) factorial n!. The function applies Stirling's approximation if n>20.
 
         @param n: computes factorial of n
-        @param log: whether or not to return the (natural) logarithm of the factorial
-
-        The function applies Stirling's approximation if n>20
+        @param log: whether or not to return the (natural) logarithm of the factorial        
         """
         f = _np.float64(0)
         n_ = _np.float64(n)
