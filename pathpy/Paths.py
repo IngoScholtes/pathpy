@@ -466,7 +466,7 @@ class Paths:
                     for i in range(s, s+k+1):
                         subpath += (path_str[i],)
                     # add subpath weight to first component of occurrences                   
-                    self.paths[k][subpath] += (1, 0)
+                    self.paths[k][subpath] += (frequency[1], 0)
 
 
 

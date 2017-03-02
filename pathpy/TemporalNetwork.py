@@ -110,7 +110,6 @@ class TemporalNetwork:
         # Read header
         with open(filename, 'r') as f:
             tedges = []
-            twopaths = []
         
             header = f.readline()
             header = header.split(sep)
