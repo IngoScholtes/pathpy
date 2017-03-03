@@ -551,7 +551,7 @@ class Paths:
         @param ngram: An ngram representing a path between nodes, separated by the separator character, e.g. 
             the 4-gram a;b;c;d represents a path of length three (with separator ';')
 
-        @param separator: The character used as separator for the ngrams (';' by default)
+        @param separator: The character used as separator for the ngrams (',' by default)
 
         @param expandSubPaths: by default all subpaths of the given ngram are generated, i.e. 
             for the trigram a;b;c a path a->b->c of length two will be generated 
