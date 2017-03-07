@@ -96,6 +96,9 @@ assert g2.ecount() == 4, "Error, wrong number of links in second-order network"
 assert g2.HigherOrderNodeToPath('a-b') == ('a', 'b'), "Error: mapping from higher-order node to first-order path failed"
 assert g2.HigherOrderPathToFirstOrder(('a-b', 'b-c')) == ('a', 'b', 'c'), "Error: mapping from higher-order path to first-order path failed"
 
+# test PageRank 
+g2.PageRank()
+
 
 #########################
 # TEST TEMPORAL NETWORK #
