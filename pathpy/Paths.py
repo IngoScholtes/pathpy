@@ -840,7 +840,7 @@ class Paths:
                 p_s = marginal_s[s]
 
                 # add to conditional entropy
-                H_ds += p_s * paths.__Entropy(p_ds, K_s, N_s, method='Miller')
+                H_ds += p_s * Paths.__Entropy(p_ds, K_s, N_s, method='Miller')
 
             #print('H(D|S) = ', H_ds)
 
