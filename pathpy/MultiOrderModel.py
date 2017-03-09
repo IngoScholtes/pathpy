@@ -146,17 +146,17 @@ class MultiOrderModel:
         if log:
             return f
         else:
-            return _np.exp(f)
+            return _np.exp(f)   
 
 
-    def getLayerLikelihood(self, paths, l=1, considerLongerPaths=True, log=True):
+    def getLayerLikelihood(self, paths, l=1, considerLongerPaths=True, log=True, minL=None):
         """
-        Calculates the (log-)likelihood of the first l layers of a multi-order network model
+        Calculates the (log-)likelihood of the **first** l layers of a multi-order network model
         using all observed paths of (at least) length l
 
         @param paths: the path statistics for which to calculate the layer likelihood
 
-        @param l: The minimum length of paths for which the likelihood shall be calculated.
+        @param l: number of layers for which likelihood shall be calculated
             Paths of length l (and possibly longer) will be used to calculate the likelihood 
             of model layers for all orders up to l
 
@@ -166,6 +166,9 @@ class MultiOrderModel:
             true only for the value of l that corresponds to the largest order in the model.
 
         @param log: whether to compute Log-Likelihood (default: True)
+        
+        @param minL: minimum length of paths which enter the likelihood calculation. For the 
+            default value None, all paths with at least length l will be considered. 
 
         @returns: the (log-)likelihood of the model layer given the path statistics
         """        
@@ -174,6 +177,9 @@ class MultiOrderModel:
         m = max(paths.paths)
 
         assert m >= l and len(paths.paths[l])>0, 'Error: there are no paths of length l or longer'
+
+        if minL == None:
+            minL = l
 
          # Set maximum length of paths to consider in likelihood calculation
         if considerLongerPaths:
@@ -193,7 +199,7 @@ class MultiOrderModel:
   
         # compute likelihood for all longest paths 
         # up to the maximum path length maxL
-        for k in range(l, maxL+1):
+        for k in range(minL, maxL+1):
             for p in paths.paths[k]:                                
 
                 # Only consider observations as *longest* path
@@ -370,27 +376,22 @@ class MultiOrderModel:
 
     def testNetworkAssumption(self, paths, method='AIC'):
         """
-        Tests whether the assumption that the observed paths result
-        from an underlying network topology is justified. Roughly speaking, 
-        this test yields true if the explanatory gained by the assumption of 
-        a network topology justifies the additional model complexity
+        Tests whether the assumption that paths are constrained
+        to the (first-order) network topology is justified. 
+        Roughly speaking, this test yields true if the gain in 
+        explanatory power that is due to the network topology 
+        justifies the additional model complexity.
 
-        The decision will be made based on a comparison between the first- 
-        and zero-order model layers. Different from the comparison of different 
-        multi-order models which is the basis of the order detection procedure, 
-        here the first- and the zero-order model are fundamentally different:
-        For the zero-order model we do not assume a network topology, while for 
-        the first-order model we do assume an underlying network topology. 
-        For this reason, the zero-order model cannot be cast as a special case 
-        of the first-order model, i.e. the models are not nested!
-
-        So we need to use the AIC or BIC rather than a likelihood ratio test.
+        The decision will be made based on a comparison between the zero- 
+        and the first-order layer of the model. Different from the multi-order 
+        model selection method implemented in estimateOrder and likelihoodRatioTest,
+        here we do *not* consider nested models, so we cannot use a likelihood ratio 
+        test. We instead use the AIC or BIC.
         """
 
         assert method == 'AIC' or method == 'BIC', 'Only AIC or BIC are supported as testing method'
 
-        # Important: For the test whether the assumption of an underlying network 
-        # topology is justified, 
+        # omit paths of length zero
         sum = 0
         for p in paths.paths[0]:
             sum += paths.paths[0][p][1]
@@ -398,10 +399,10 @@ class MultiOrderModel:
             Log.add('Omitting ' + str(sum) + ' zero-length paths for test of network assumption', Severity.WARNING)
         
         # log-likelihood and observation count of zero-order model
-        L0, n0 = self.getLayerLikelihood(paths, 0, considerLongerPaths=True, log=True)
+        L0, n0 = self.getLayerLikelihood(paths, l=0, considerLongerPaths=True, log=True, minL=1)
 
         # log-likelihood and observation count of first-order model
-        L1, n1 = self.getLayerLikelihood(paths, 1, considerLongerPaths=True, log=True)
+        L1, n1 = self.getLayerLikelihood(paths, l=1, considerLongerPaths=True, log=True, minL=1)
 
         # degrees of freedom = |V|-1
         dof0 = self.layers[0].getDoF(assumption='ngrams')        
