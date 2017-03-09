@@ -52,7 +52,7 @@ class Paths:
         sum = 0
         spsum = 0
         lpsum = 0
-        maxL = -1
+        maxL = 0
         avgL = 0
         nodes = set()
         for k in self.paths:
@@ -63,7 +63,8 @@ class Paths:
                 avgL += self.paths[k][p][1] * k
                 for v in p:
                     nodes.add(v)
-            maxL = max(maxL, k)
+            if len(self.paths[k])>0:
+                maxL = max(maxL, k)
         if lpsum>0:
             avgL = avgL / lpsum
 
@@ -283,7 +284,12 @@ class Paths:
         for a four-gram a,b,c,d, the paths a->b, b->c, c->d of 
         length one and the paths a->b->c and b->c->d of length 
         two will be counted.
-        """     
+        """             
+
+        # nothing to see here ... 
+        if len(self.paths)==0:
+            return
+
         Log.add('Calculating sub path statistics ... ')
 
         # the expansion of all subpaths in paths with a maximum path length of maxL
@@ -294,6 +300,7 @@ class Paths:
 
         # Thanks to the use of defaultdict, the following trick will prevent us from 
         # repeatedly testing whether l already exists as a key
+
         for l in range(max(self.paths)):
                 self.paths[l] = self.paths[l]
 
