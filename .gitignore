@@ -109,3 +109,6 @@ pyTempNet.egg-info/requires.txt
 pyTempNet.egg-info/requires.txt
 pyTempNet.egg-info/dependency_links.txt
 pyTempNet.egg-info/SOURCES.txt
+.idea/
+.eggs/
+prof/*

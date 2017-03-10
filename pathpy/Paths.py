@@ -265,6 +265,31 @@ class Paths:
         return p
 
 
+    def writeFile(self, filename, separator=','):
+        """
+        Writes path statistics data to a file. 
+        Each line in this file captures a longest path 
+        (v0,v1,...,vl), as well as its frequency f as follows
+
+        v0,v1,...,vl,f
+
+        @param filename: name of the file to write to
+        @param separator: character that shall be used to 
+            separate nodes and frequencies
+        """
+        with open(filename, 'w') as f:
+            for l in self.paths:
+                for p in self.paths[l]:
+                    if self.paths[l][p][1]>0:
+                        line = ""
+                        for x in p:
+                            line += x
+                            line += separator
+                        line += str(self.paths[l][p][1])
+                        f.write(line+'\n')
+        f.close()
+
+
     def ObservationCount(self):
         """
         Returns the total number of observed pathways of any length 
