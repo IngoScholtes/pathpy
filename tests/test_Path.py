@@ -23,6 +23,27 @@ def test_readfile_import(path_from_ngram_file):
         "Wrong node labels"
 
 
+def test_readfile_empty():
+    with pytest.raises(FileNotFoundError):
+        pp.Paths.readFile('')
+
+
+def test_write_file(tmpdir, random_paths):
+    dir_path = tmpdir.mkdir("sub").join("test.edges")
+    p = random_paths(30, 50)
+
+    expected_seq = ''.join(p.getSequence())
+    expected_paths = sorted(expected_seq.split('|'))
+
+    p.writeFile(dir_path.strpath)
+    p2 = pp.Paths.readFile(dir_path.strpath, pathFrequency=True)
+
+    read_back = ''.join(p2.getSequence())
+    read_back_paths = sorted(read_back.split('|'))
+
+    assert expected_paths == read_back_paths
+
+
 def test_read_edges_import(path_from_edge_file):
     """test if the Paths.readEdges functions works"""
     levels = list(path_from_edge_file.paths.keys())
@@ -76,7 +97,7 @@ def test_path_summary(random_paths):
     print(p)
 
 
-def test_summary_multiOrderModel(random_paths):
+def test_summary_multi_order_model(random_paths):
     p = random_paths(90, 90)
     multi = pp.MultiOrderModel(paths=p, maxOrder=3)
     print(multi)
@@ -136,4 +157,19 @@ def test_project_paths(path_from_ngram_file):
     new_sequence = ''.join(new_p.getSequence())
     expected_sequence = "yyyxx|yyyxx|yyyxx|yyyxx|xxyyxx|xxyyxx|"
     assert new_sequence == expected_sequence
+
+
+def test_slowdown_factor_error(random_paths):
+    p = random_paths(4, 3)
+    with pytest.raises(ValueError):
+        p.getSlowDownFactor(k=1)
+
+
+def test_get_nodes(random_paths):
+    p = random_paths(3, 9)
+    rest = p.getNodes()
+    expected = {'b', 'o', 'u', 'v', 'w', 'y'}
+    assert rest == expected
+
+
 

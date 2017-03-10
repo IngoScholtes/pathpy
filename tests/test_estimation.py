@@ -229,7 +229,7 @@ def test_closeness_centrality(path_from_ngram_file):
     assert nodes == expected_nodes
 
 
-def test_closeness_centrality(path_from_ngram_file):
+def test_closeness_centrality_norm(path_from_ngram_file):
     p = path_from_ngram_file
     closeness_centrality = p.ClosenessCentrality(normalized=True)
     closeness_max = max(c for c in closeness_centrality.values())
