@@ -23,11 +23,6 @@ def test_readfile_import(path_from_ngram_file):
         "Wrong node labels"
 
 
-def test_readfile_empty():
-    with pytest.raises(FileNotFoundError):
-        pp.Paths.readFile('')
-
-
 def test_write_file(tmpdir, random_paths):
     dir_path = tmpdir.mkdir("sub").join("test.edges")
     p = random_paths(30, 50)
@@ -157,12 +152,6 @@ def test_project_paths(path_from_ngram_file):
     new_sequence = ''.join(new_p.getSequence())
     expected_sequence = "yyyxx|yyyxx|yyyxx|yyyxx|xxyyxx|xxyyxx|"
     assert new_sequence == expected_sequence
-
-
-def test_slowdown_factor_error(random_paths):
-    p = random_paths(4, 3)
-    with pytest.raises(ValueError):
-        p.getSlowDownFactor(k=1)
 
 
 def test_get_nodes(random_paths):
