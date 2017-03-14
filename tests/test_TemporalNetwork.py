@@ -1,5 +1,6 @@
 import pathpy as pp
 import os
+import numpy as np
 
 
 def test_read_temporal_file_int(test_data_directory,):
@@ -47,12 +48,13 @@ def test_get_interpath_times(temporal_network_object):
 
 def test_shuffle_edges(temporal_network_object):
     t = temporal_network_object
-    t1 = t.ShuffleEdges(with_replacement=True, random_seed=90)
+    np.random.seed(90)
+    t1 = t.ShuffleEdges(with_replacement=True)
     times1 = len(t1.tedges)
     expected1 = len(t.tedges)
     assert times1 == expected1
-
-    t2 = t.ShuffleEdges(l=4, with_replacement=False, random_seed=90)
+    np.random.seed(90)
+    t2 = t.ShuffleEdges(l=4, with_replacement=False)
     edges2 = len(t2.tedges)
     expected2 = 4
     assert edges2 == expected2

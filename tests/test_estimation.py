@@ -250,11 +250,14 @@ def test_visitation_probabilities(path_from_ngram_file):
 
 @slow
 def test_entropy_growth_rate_ratio(random_paths):
-    p = random_paths(500, 500)
+    p = random_paths(100, 500)
     mle_ratio = p.getEntropyGrowthRateRatio(method="MLE")
-    mle_expected = 0.27318514607334121
+    mle_expected = 0.10515408343772015
     assert mle_ratio == pytest.approx(mle_expected)
 
+@slow
+def test_entropy_growth_rate_ratio(random_paths):
+    p = random_paths(100, 500)
     miller_ratio = p.getEntropyGrowthRateRatio(method="Miller")
-    miller_expected = 0.27552683894110241
+    miller_expected = 0.6765478705937058
     assert miller_ratio == pytest.approx(miller_expected)
