@@ -5,7 +5,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{896991fc-0289-4bae-b680-88e19508c91f}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>pathpy\test.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -40,16 +41,31 @@
     </Compile>
     <Compile Include="setup.py" />
     <Compile Include="pathpy\TemporalNetwork.py" />
-    <Compile Include="pathpy\test.py" />
     <Compile Include="pathpy\__init__.py" />
+    <Compile Include="tests\conftest.py" />
+    <Compile Include="tests\test_estimation.py" />
+    <Compile Include="tests\test_Path.py" />
+    <Compile Include="tests\test_TemporalNetwork.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="pathpy\" />
+    <Folder Include="tests\" />
+    <Folder Include="tests\test_data\" />
+    <Folder Include="tests\__pycache__\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="DESCRIPTION.rst" />
     <Content Include="README.md" />
+    <Content Include="tests\README.md" />
+    <Content Include="tests\test_data\edge_frequency.edge" />
+    <Content Include="tests\test_data\example_int.tedges" />
+    <Content Include="tests\test_data\example_timestamp.tedges" />
+    <Content Include="tests\test_data\ngram_simple.ngram" />
+    <Content Include="tests\__pycache__\conftest.cpython-35-PYTEST.pyc" />
+    <Content Include="tests\__pycache__\test_estimation.cpython-35-PYTEST.pyc" />
+    <Content Include="tests\__pycache__\test_Path.cpython-35-PYTEST.pyc" />
+    <Content Include="tests\__pycache__\test_TemporalNetwork.cpython-35-PYTEST.pyc" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
