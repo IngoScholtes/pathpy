@@ -67,7 +67,7 @@ class HigherOrderNetwork:
 
         assert method == 'FirstOrderTransitions' or method == 'KOrderPi', 'Error: unknown method to build null model'
 
-        assert max(paths.paths.keys())>=k, 'Error: constructing a model of order k requires paths of at least length k'
+        assert len(paths.paths.keys())>0 and max(paths.paths.keys())>=k, 'Error: constructing a model of order k requires paths of at least length k'
         
         ## The order of this HigherOrderNetwork
         self.order = k
@@ -258,7 +258,7 @@ class HigherOrderNetwork:
         if len(self.edges)>0:
             return sum(self.edges.values())
         else:
-            return (0,0)
+            return _np.array([0,0])
 
 
     def HigherOrderNodeToPath(self, node):
