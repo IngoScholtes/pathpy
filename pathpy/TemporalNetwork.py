@@ -10,8 +10,10 @@ import sys as _sys
 import collections as _co
 import bisect as _bs
 import datetime as _dt
+import time as _t
 
 from pathpy.Log import Log
+from pathpy.Log import Severity
 import pathpy.Paths
 
 
@@ -148,7 +150,7 @@ class TemporalNetwork:
                             t = int(timestamp)
                         else:   # if it is a string, we use the timestamp format to convert it to a UNIX timestamp                                
                             x = _dt.datetime.strptime(timestamp, timestampformat)
-                            t = int(time.mktime(x.timetuple()))
+                            t = int(_t.mktime(x.timetuple()))
                     else:
                         t = n                
                     if t>=0:
@@ -261,7 +263,7 @@ class TemporalNetwork:
         in the temporal network
         """
 
-        interPathTimes = defaultdict( lambda: list() )
+        interPathTimes = _co.defaultdict( lambda: list() )
         for e in self.tedges:
             # Get target v of current edge e=(u,v,t)
             v = e[1]
