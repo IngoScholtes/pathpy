@@ -56,6 +56,7 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="DESCRIPTION.rst" />
+    <Content Include="LICENSE.txt" />
     <Content Include="README.md" />
     <Content Include="tests\README.md" />
     <Content Include="tests\test_data\edge_frequency.edge" />
