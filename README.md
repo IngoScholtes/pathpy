@@ -54,10 +54,10 @@ The research behind this data analysis framework was funded by the Swiss State S
 
 # Contributors
 
-[Ingo Scholtes](http://www.ingoscholtes.net) (project lead, development)
-Roman Cattaneo (development)
-Nicolas Wider (testing)
-Luca Verginer (test suite integration)
+[Ingo Scholtes](http://www.ingoscholtes.net) (project lead, development)  
+Roman Cattaneo (development)  
+Nicolas Wider (testing)  
+Luca Verginer (test suite integration)  
 
 # Copyright
 
