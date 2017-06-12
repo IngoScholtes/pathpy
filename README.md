@@ -26,7 +26,7 @@ The theoretical foundation of this package, **higher-order network models**, has
 `pathpy` extends this approach towards **multi-layer graphical models** that capture temporal correlations in pathways at multiple length scales simultaneously. An illustrative example for
 a collection of pathways (left) and a multi-order graphical representation of these pathways is shown below. All mathematical details of the framework can be found in this [recent research paper](https://arxiv.org/abs/1702.05499).
 
-[[embed url=https://www.youtube.com/embed/CxJkVrD2ZlM]]
+[embed url=https://www.youtube.com/embed/CxJkVrD2ZlM]
 
 <img src="https://github.com/IngoScholtes/pathpy/blob/master/multiorder.png" width="500" alt="Illustration of Multi-Order Model" />
 
