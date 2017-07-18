@@ -24,7 +24,7 @@ def test_estimate_order_1():
     paths.addPath('c,d')
     paths.addPath('c,e')
 
-    for k in range(3):
+    for k in range(4):
         paths.addPath('a,c,d')
         paths.addPath('b,c,e')
         paths.addPath('b,c,d')
@@ -44,7 +44,7 @@ def test_estimate_order_2():
     paths.addPath('c,d')
     paths.addPath('c,e')
 
-    for k in range(3):
+    for k in range(4):
         paths.addPath('a,c,d')
         paths.addPath('b,c,e')
 

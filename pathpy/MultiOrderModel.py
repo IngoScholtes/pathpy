@@ -346,11 +346,8 @@ class MultiOrderModel:
         assert maxOrderNull < maxOrder, 'Error: order of null hypothesis must be smaller than order of alternative hypothesis'
         # let L0 be the likelihood for the null model and L1 be the likelihood for the alternative model
 
-        # we first compute x = log_2 (L0/L1) = log_2 L0 - log_2 L1 = log_2 e * ln L0 - log_2 e * ln L1
-        x = _np.log2(_np.e) * self.getLikelihood(paths, maxOrder=maxOrderNull, log=True) - _np.log2(_np.e) * self.getLikelihood(paths, maxOrder=maxOrder, log=True)
-
-        # we now have a test statistic x = -2 * log_2 (L0/L1)
-        x = -2 * x
+        # we first compute a test statistic x = -2 * log (L0/L1) = -2 * (log L0 - log L1)
+        x = -2 * (self.getLikelihood(paths, maxOrder=maxOrderNull, log=True) - self.getLikelihood(paths, maxOrder=maxOrder, log=True))
 
         # we calculate the additional degrees of freedom in the alternative model
         dof_diff = self.getDegreesOfFreedom(maxOrder=maxOrder, assumption=assumption) - self.getDegreesOfFreedom(maxOrder=maxOrderNull, assumption=assumption)
