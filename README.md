@@ -18,13 +18,15 @@ abstraction of such data is justified, or whether higher-order network abstracti
 
 The theoretical foundation of this package, **higher-order network models**, has been developed in the following research works:
 
-1. I Scholtes: [When is a network a network? Multi-Order Graphical Model Selection in Pathways and Temporal Networks](https://arxiv.org/abs/1702.05499), February 2017, arXiv:1702.05499
+1. I Scholtes: [When is a network a network? Multi-Order Graphical Model Selection in Pathways and Temporal Networks](https://arxiv.org/abs/1702.05499), to appear in KDD'17, arXiv:1702.05499
 2. I Scholtes, N Wider, A Garas: [Higher-Order Aggregate Networks in the Analysis of Temporal Networks: Path structures and centralities](http://dx.doi.org/10.1140/epjb/e2016-60663-0), The European Physical Journal B, 89:61, March 2016
 3. I Scholtes, N Wider, R Pfitzner, A Garas, CJ Tessone, F Schweitzer: [Causality-driven slow-down and speed-up of diffusion in non-Markovian temporal networks](http://www.nature.com/ncomms/2014/140924/ncomms6024/full/ncomms6024.html), Nature Communications, 5, September 2014
 4. R Pfitzner, I Scholtes, A Garas, CJ Tessone, F Schweitzer: [Betweenness preference: Quantifying correlations in the topological dynamics of temporal networks](http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.110.198701), Phys Rev Lett, 110(19), 198701, May 2013
 
 `pathpy` extends this approach towards **multi-layer graphical models** that capture temporal correlations in pathways at multiple length scales simultaneously. An illustrative example for
 a collection of pathways (left) and a multi-order graphical representation of these pathways is shown below. All mathematical details of the framework can be found in this [recent research paper](https://arxiv.org/abs/1702.05499).
+
+[![Watch promotional video](https://img.youtube.com/vi/CxJkVrD2ZlM/0.jpg)](https://www.youtube.com/watch?v=CxJkVrD2ZlM)
 
 <img src="https://github.com/IngoScholtes/pathpy/blob/master/multiorder.png" width="500" alt="Illustration of Multi-Order Model" />
 
@@ -33,6 +35,8 @@ a collection of pathways (left) and a multi-order graphical representation of th
 `pathpy` is pure python code. It has no platform-specific dependencies and should thus work on all platforms. It builds on `numpy` and `scipy`. The latest version of `pathpy` can be installed by typing:
 
 `> pip install git+git://github.com/IngoScholtes/pathpy.git`
+
+`pathpy` currently requires python 3.x. We are planning to make the next version backwards compatible with python 2.x. 
 
 # Tutorial
 
