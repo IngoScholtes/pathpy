@@ -18,16 +18,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     Contact the developer:
-    
+
     E-mail: ischoltes@ethz.ch
     Web:    http://www.ingoscholtes.net
 """
 
-import numpy as _np 
+import numpy as _np
 import collections as _co
 import bisect as _bs
 import itertools as _iter
-import warnings as _w
 
 import scipy.sparse as _sparse
 import scipy.misc as _misc
@@ -40,20 +39,20 @@ from pathpy.Log import Log
 from pathpy.Log import Severity
 
 _np.seterr(all='warn')
-_w.filterwarnings('error')
+
 
 class MarkovSequence:
-    """ Instances of this class can be used to fit 
-        standard higher-order Markov models for 
+    """ Instances of this class can be used to fit
+        standard higher-order Markov models for
         sequences generated from concatenated paths """
 
     def __init__(self, sequence):
-        """ 
-        Generates a Markov model for a sequence, given 
+        """
+        Generates a Markov model for a sequence, given
         as a single list of strings
         """
 
-        ## The sequence to be modeled 
+        ## The sequence to be modeled
         self.sequence = sequence
 
         ## The transition probabilities of higher-order Markov chains
@@ -65,13 +64,13 @@ class MarkovSequence:
 
 
     def fitMarkovModel(self, k=1):
-        """ Generates a k-th order Markov model 
+        """ Generates a k-th order Markov model
             for the underlying sequence
         """
 
         # TODO: Add support for k=0
 
-        assert len(self.sequence)>0, "Error: Empty sequence"        
+        assert len(self.sequence)>0, "Error: Empty sequence"
 
         # MLE fit of transition probabilities
         self.P[k] = _co.defaultdict( lambda:  _co.defaultdict( lambda: 0.0 )  )
@@ -81,7 +80,7 @@ class MarkovSequence:
         # Generate initial memory prefix
         mem = (())
         for s in self.sequence[:k]:
-            mem += (s,)     
+            mem += (s,)
 
         # count state transitions
         for s in self.sequence[k:]:
@@ -99,14 +98,14 @@ class MarkovSequence:
 
 
     def getLikelihood(self, k=1, log=True):
-        """ 
-        Returns the likelihood of the sequence 
-        assuming a k-th order Markov model 
         """
-        
+        Returns the likelihood of the sequence
+        assuming a k-th order Markov model
+        """
+
         if k not in self.P:
             self.fitMarkovModel(k)
-        
+
         L = 0
 
          # Generate initial prefix
@@ -141,10 +140,10 @@ class MarkovSequence:
 
         s = len(self.states[1])
         n = len(self.sequence)-k
-        
-        # the transition matrix of a first-order model with s states has s**2 entries, subject to the 
-        # constraint that entries in each row must sum up to one (thus effectively reducing 
-        # the degrees of freedom by a factor of s, i.e. we have s**2-s**1. Generalizing this to order k, 
+
+        # the transition matrix of a first-order model with s states has s**2 entries, subject to the
+        # constraint that entries in each row must sum up to one (thus effectively reducing
+        # the degrees of freedom by a factor of s, i.e. we have s**2-s**1. Generalizing this to order k,
         # we arrive at s**k * (s-1) = s**(k+1) - s**k derees of freedom
         bic = _np.log(n) * (s**k - s**m) * (s-1) - 2.0 * (L_k-L_m)
 
@@ -166,7 +165,7 @@ class MarkovSequence:
 
         s = len(self.states[1])
         n = len(self.sequence)
-        
+
         aic = 2 * (s**k - s**m) * (s-1) - 2.0 * (L_k - L_m)
 
         return aic
@@ -181,7 +180,7 @@ class MarkovSequence:
         values = []
         orders = []
 
-        # We need k < m for the BIC and AIC calculation, which 
+        # We need k < m for the BIC and AIC calculation, which
         # is why we only test up to maxOrder - 1
         for k in range(1, maxOrder):
             if k not in self.P:
@@ -189,7 +188,7 @@ class MarkovSequence:
 
             orders.append(k)
 
-            if method == 'AIC':                
+            if method == 'AIC':
                 values.append(self.getAIC(k, maxOrder))
             elif method == 'BIC':
                 values.append(self.getBIC(k, maxOrder))
