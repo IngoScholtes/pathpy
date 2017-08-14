@@ -64,9 +64,12 @@ def test_read_edges_undirected(path_from_edge_file_undirected):
 
 
 def test_get_sequence(path_from_ngram_file):
+    from collections import Counter
     """Test if the Paths.getSequence function works correctly"""
     sequence = path_from_ngram_file.getSequence()
-    assert "".join(sequence) == 'dedab|dedab|dedab|dedab|abcdab|abcdab|', \
+    sequence = "".join(sequence)
+    ct = Counter(sequence.split('|'))
+    assert dict(ct) == {'': 1, 'abcdab': 2, 'dedab': 4}, \
         "Returned the wrong sequence"
 
 
@@ -138,20 +141,25 @@ def test_get_contained_paths():
 
 
 def test_filter_paths(path_from_ngram_file):
+    from collections import Counter
     p = path_from_ngram_file
     new_paths = p.filterPaths(node_filter=['a', 'b', 'c'])
-    expected_sequence = "ab|ab|ab|ab|ab|ab|abc|abc|"
+    expected_sequence = {'': 1, 'ab': 6, 'abc': 2}
+
     new_sequence = ''.join(new_paths.getSequence())
-    assert new_sequence == expected_sequence
+    ct = Counter(new_sequence.split('|'))
+    assert dict(ct) == expected_sequence
 
 
 def test_project_paths(path_from_ngram_file):
+    from collections import Counter
     p = path_from_ngram_file
     mapping = {'a': 'x', 'b': 'x', 'c': 'y', 'd': 'y', 'e': 'y'}
     new_p = p.projectPaths(mapping=mapping)
     new_sequence = ''.join(new_p.getSequence())
-    expected_sequence = "yyyxx|yyyxx|yyyxx|yyyxx|xxyyxx|xxyyxx|"
-    assert new_sequence == expected_sequence
+    ct = Counter(new_sequence.split('|'))
+    expected_sequence = {'': 1, 'xxyyxx': 2, 'yyyxx': 4}
+    assert dict(ct) == expected_sequence
 
 
 def test_get_nodes(random_paths):
@@ -159,6 +167,3 @@ def test_get_nodes(random_paths):
     rest = p.getNodes()
     expected = {'b', 'o', 'u', 'v', 'w', 'y'}
     assert rest == expected
-
-
-
