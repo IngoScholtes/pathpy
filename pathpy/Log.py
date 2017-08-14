@@ -1,6 +1,7 @@
 ﻿# -*- coding: utf-8 -*-
 """
-    pathpy is an OpenSource python package for the analysis of sequential data on pathways and temporal networks using higher- and multi order graphical models
+    pathpy is an OpenSource python package for the analysis of sequential data
+    on pathways and temporal networks using higher- and multi order graphical models
 
     Copyright (C) 2016-2017 Ingo Scholtes, ETH Zürich
 
@@ -11,14 +12,14 @@
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
     GNU Affero General Public License for more details.
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     Contact the developer:
-    
+
     E-mail: ischoltes@ethz.ch
     Web:    http://www.ingoscholtes.net
 """
@@ -29,12 +30,12 @@ import io
 import sys
 
 class Severity(enum.IntEnum):
-    """ An enumeration that can be used to indicate 
-        the severity of log messages, and which can be 
+    """ An enumeration that can be used to indicate
+        the severity of log messages, and which can be
         used tpo filter messages based on severities.
     """
 
-    ## Error messages 
+    ## Error messages
     ERROR = 4
 
     ## Warning messages
@@ -51,7 +52,7 @@ class Severity(enum.IntEnum):
 
 
 class Log:
-    """ A simple logging class, that allows to select what messages should 
+    """ A simple logging class, that allows to select what messages should
         be recorded in the output, and where these message should be directed.
     """
 
@@ -64,10 +65,10 @@ class Log:
 
     @staticmethod
     def setMinSeverity(severity):
-        """ Sets the minimum sveerity level a message 
+        """ Sets the minimum sveerity level a message
         needs to have in order to be recorded in the output stream.
-        By default, any message which has a severity of at least 
-        Severity.INFO will be written to the output stream. All messages 
+        By default, any message which has a severity of at least
+        Severity.INFO will be written to the output stream. All messages
         with lower priority will be surpressed.
         """
         Log.min_severity = severity
@@ -75,19 +76,19 @@ class Log:
 
     @staticmethod
     def setOutputStream(stream):
-        """ Sets the output stream to which all messages will be 
-            written. By default, this is sys.stdout, but it can be 
-            changed in order to redirect the log to a logfile. 
+        """ Sets the output stream to which all messages will be
+            written. By default, this is sys.stdout, but it can be
+            changed in order to redirect the log to a logfile.
         """
         output_stream = stream
 
 
     @staticmethod
     def add(msg, severity=Severity.INFO):
-        """ Adds a message with the given severity to the log. This message will be written 
-            to the log output stream, which by default is sys.stdout. A newline character 
+        """ Adds a message with the given severity to the log. This message will be written
+            to the log output stream, which by default is sys.stdout. A newline character
             will be added to the message by default.
-        """ 
+        """
         if severity >= Log.min_severity:
             ts = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
             Log.output_stream.write(ts + ' [' + str(severity) + ']\t' + msg + '\n')

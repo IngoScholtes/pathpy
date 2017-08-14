@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    pathpy is an OpenSource python package for the analysis of sequential data on pathways and temporal networks using higher- and multi order graphical models
+    pathpy is an OpenSource python package for the analysis of
+    sequential data on pathways and temporal networks using higher- and multi order graphical models
 
     Copyright (C) 2016-2017 Ingo Scholtes, ETH Zürich
 
