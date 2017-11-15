@@ -133,8 +133,8 @@ class HigherOrderNetwork:
                     for l in range(1, k):
                         v = v + separator + p[l]
                         w = w + separator + p[l+1]
-                    self.nodes.append(v)
-                    self.nodes.append(w)
+                self.nodes.append(v)
+                self.nodes.append(w)
                 """
                 if v not in self.nodes:
                     self.nodes.append(v)
