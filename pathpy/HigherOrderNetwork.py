@@ -129,21 +129,22 @@ class HigherOrderNetwork:
                 else:
                     # Generate names of k-order nodes v and w
                     v = p[0]
+                    w = p[1]
                     for l in range(1, k):
                         v = v + separator + p[l]
-                    w = p[1]
-                    for l in range(2, k+1):
-                        w = w + separator + p[l]
+                        w = w + separator + p[l+1]
+                """
                 if v not in self.nodes:
                     self.nodes.append(v)
                 if w not in self.nodes:
                     self.nodes.append(w)
+                """
                 # as edge weights of the k-th order model, we sum the
                 # occurrence of paths of length k as subpath and longest path
                 self.edges[(v,w)] += paths.paths[k][p]
                 self.successors[v].add(w)
                 self.predecessors[w].add(v)
-
+            self.nodes = list(set(self.nodes)) # removes duplicates, does however randomize the order
             # Note: For all sequences of length k which (i) have never been observed, but (ii) 
             #       do actually represent paths of length k in the first-order network, we 
             #       may want to include some 'escape' mechanism along the lines of (Cleary and Witten 1994)                        
@@ -156,14 +157,13 @@ class HigherOrderNetwork:
             # based on edges in the first-order network
             possiblePaths = list(g1.edges.keys())
 
-            for i in range(k-1):
-                E_new = list()
-                for e1 in possiblePaths:
-                    for e2 in g1.edges:
-                        if e1[-1] == e2[0]:
-                            p = e1 + (e2[1],)
-                            E_new.append(p)
-                possiblePaths = E_new
+            E_new = list()
+            for e1 in possiblePaths:
+                for e2 in g1.edges:
+                    if e1[-1] == e2[0]:
+                        p = e1 + (e2[1],)
+                        E_new.append(p)
+            possiblePaths = E_new
 
             # validate that the number of unique generated paths corresponds to the sum of entries in A**k            
             assert (A**k).sum() == len(possiblePaths), 'Expected ' + str((A**k).sum()) + ' paths but got ' + str(len(possiblePaths))
@@ -178,18 +178,19 @@ class HigherOrderNetwork:
 
             # assign link weights in k-order null model
             for p in possiblePaths:
-                v = p[0]                      
+                v = p[0]   
+                w = p[1]
                 # add k-order nodes and edges
                 for l in range(1, k):
                     v = v + separator + p[l]
-                w = p[1]                            
-                for l in range(2, k+1):
-                    w = w + separator + p[l]
+                    w = w + separator + p[l+1]
+                    
+                """
                 if v not in self.nodes:
                     self.nodes.append(v)
                 if w not in self.nodes:
                     self.nodes.append(w)
-
+                """
                 # NOTE: under the null model's assumption of independent events, we
                 # have P(B|A) = P(A ^ B)/P(A) = P(A)*P(B)/P(A) = P(B)
                 # In other words: we are encoding a k-1-order Markov process in a k-order
@@ -215,6 +216,7 @@ class HigherOrderNetwork:
 
                 # Note: Solution B and C are equivalent
                 self.successors[v].add(w)
+            self.nodes = list(set(self.nodes))
 
         # Compute degrees of freedom of models
         if k==0:
