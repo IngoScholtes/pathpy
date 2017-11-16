@@ -135,12 +135,7 @@ class HigherOrderNetwork:
                         w = w + separator + p[l+1]
                 self.nodes.append(v)
                 self.nodes.append(w)
-                """
-                if v not in self.nodes:
-                    self.nodes.append(v)
-                if w not in self.nodes:
-                    self.nodes.append(w)
-                """
+
                 # as edge weights of the k-th order model, we sum the
                 # occurrence of paths of length k as subpath and longest path
                 self.edges[(v,w)] += paths.paths[k][p]
@@ -188,12 +183,7 @@ class HigherOrderNetwork:
                     w = w + separator + p[l+1]
                 self.nodes.append(v)
                 self.nodes.append(w)
-                """
-                if v not in self.nodes:
-                    self.nodes.append(v)
-                if w not in self.nodes:
-                    self.nodes.append(w)
-                """
+
                 # NOTE: under the null model's assumption of independent events, we
                 # have P(B|A) = P(A ^ B)/P(A) = P(A)*P(B)/P(A) = P(B)
                 # In other words: we are encoding a k-1-order Markov process in a k-order
