@@ -59,12 +59,14 @@ The research behind this data analysis framework was funded by the Swiss State S
 # Contributors
 
 [Ingo Scholtes](http://www.ingoscholtes.net) (project lead, development)  
+[Luca Verginer](http://www.verginer.eu/about/) (development, testing)  
+
+# Past Contributors
 Roman Cattaneo (development)  
 Nicolas Wider (testing)  
-Luca Verginer (test suite integration)  
 
 # Copyright
 
 pathpy is licensed under the [GNU Affero General Public License](https://choosealicense.com/licenses/agpl-3.0/).
 
-(c) Copyright ETH Zürich, Chair of Systems Design, 2015-2017
+(c) Copyright ETH Zürich, Chair of Systems Design, 2015-2018
