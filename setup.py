@@ -29,7 +29,7 @@ setup(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering :: Information Analysis',
-        'License :: OSI Approved :: AGPL-3.0+ License',
+        'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
@@ -46,6 +46,6 @@ setup(
     packages=find_packages(include=['pathpy']),
     test_suite='tests',
     url='https://github.com/IngoScholtes/pathpy',
-    version='1.1.2',
+    version='1.1.1',
     zip_safe=False
 )

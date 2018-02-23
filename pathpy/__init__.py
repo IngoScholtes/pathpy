@@ -1,7 +1,7 @@
 ﻿"""Top-level package for pathpy."""
 __author__ = """Ingo Scholtes"""
 __email__ = 'ischoltes@ethz.ch'
-__version__ = '1.1.2'
+__version__ = '1.1.1'
 
 
 from .Log import *
