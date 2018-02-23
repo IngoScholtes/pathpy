@@ -1,1 +1,0 @@
-pathpy is an OpenSource python package for the modeling and analysis of pathways and temporal networks using higher-order and multi-order graphical models.
