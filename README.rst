@@ -1,4 +1,4 @@
-.. image:: https://github.com/IngoScholtes/pathpy/blob/master/pathpy_logo.png
+.. image:: https://raw.githubusercontent.com/IngoScholtes/pathpy/master/pathpy_logo.png
 
 Introduction
 ============
