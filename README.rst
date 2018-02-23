@@ -117,10 +117,8 @@ Practice <https://www.sg.ethz.ch/projects/mtec-interaction-patterns/>`__.
 Contributors
 ============
 
-| `Ingo Scholtes <http://www.ingoscholtes.net>`__ (project lead,
-  development)
-| `Luca Verginer <http://www.verginer.eu/about/>`__ (development,
-  testing)
+| `Ingo Scholtes <http://www.ingoscholtes.net>`__ (project lead, development)
+| `Luca Verginer <http://www.verginer.eu/about/>`__ (development, testing)
 
 Past Contributors
 =================
