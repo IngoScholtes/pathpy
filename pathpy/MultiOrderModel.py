@@ -1,27 +1,26 @@
 # -*- coding: utf-8 -*-
-"""
-    pathpy is an OpenSource python package for the analysis of sequential data on pathways and temporal networks using higher- and multi order graphical models
-
-    Copyright (C) 2016-2017 Ingo Scholtes, ETH Zürich
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as published
-    by the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-    Contact the developer:
-
-    E-mail: ischoltes@ethz.ch
-    Web:    http://www.ingoscholtes.net
-"""
+#  pathpy is an OpenSource python package for the analysis of sequential data on pathways
+#  and temporal networks using higher- and multi order graphical models
+#
+#  Copyright (C) 2016-2017 Ingo Scholtes, ETH Zürich
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as published
+#  by the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+#
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#  Contact the developer:
+#
+#  E-mail: ischoltes@ethz.ch
+#  Web:    http://www.ingoscholtes.net
 
 import numpy as _np
 import collections as _co
@@ -103,10 +102,10 @@ class MultiOrderModel:
 
     def saveStateFile(self, filename, layer=None):
         """
-        Saves the multi-order model in state file format 
+        Saves the multi-order model in state file format
         suitable to be used with InfoMap
 
-        @param layer: if none, all layers will be export. If set to k, only 
+        @param layer: if none, all layers will be export. If set to k, only
             the k-th layer of the model will be exported.
         """
 
@@ -134,19 +133,19 @@ class MultiOrderModel:
 
             # each line contains uniqueID physicalID [name]
             file.write('{0} {1} "{2}"\n'.format(v_ix+1, first_layer_map[v_path[-1]]+1, v))
-    
+
         file.write('*Links\n'.format(self.layers[1].vcount()))
         for e in self.layers[layer].edges:
             source = e[0]
             target = e[1]
 
             # Get source and target paths
-            source_p = self.layers[layer].HigherOrderNodeToPath(source)            
+            source_p = self.layers[layer].HigherOrderNodeToPath(source)
             source_t = self.layers[layer].HigherOrderNodeToPath(target)
 
             source_ix = name_map[source]
             target_ix = name_map[target]
-            
+
             # Get edge weight
             w_st = self.layers[layer].edges[e][1]
 

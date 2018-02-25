@@ -7,8 +7,7 @@ Welcome to pathpy's documentation!
 
    readme
    installation
-   usage
-   modules
+   pathpy
    contributing
    history
 

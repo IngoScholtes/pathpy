@@ -44,6 +44,9 @@ pathpy could always use more documentation, whether as part of the
 official pathpy docs, in docstrings, or even on the web in blog posts,
 articles, and such.
 
+Pathpy uses the numpy docstring format, you can see the guide
+`here <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`_.
+
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
@@ -69,7 +72,8 @@ Ready to contribute? Here's how to set up `pathpy` for local development.
 
     $ mkvirtualenv pathpy
     $ cd pathpy/
-    $ python setup.py develop
+    $ pip install -e .
+    $ pip install -r requirements_dev.txt
 
 4. Create a branch for local development::
 
@@ -78,13 +82,12 @@ Ready to contribute? Here's how to set up `pathpy` for local development.
    Now you can make your changes locally.
 
 5. When you're done making changes, check that your changes pass flake8 and the
-   tests, including testing other Python versions with tox::
+   tests::
 
     $ flake8 pathpy tests
     $ python setup.py test or py.test
-    $ tox
 
-   To get flake8 and tox, just pip install them into your virtualenv.
+   To get flake8 and py.test, just pip install them into your virtualenv
 
 6. Commit your changes and push your branch to GitHub::
 
@@ -103,7 +106,7 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
-3. The pull request should work for Python 2.7, 3.4, 3.5 and 3.6, and for PyPy. Check
+3. The pull request should work for Python 3.5 and 3.6. Check
    https://travis-ci.org/IngoScholtes/pathpy/pull_requests
    and make sure that the tests pass for all supported Python versions.
 
@@ -119,11 +122,25 @@ Deploying
 ---------
 
 A reminder for the maintainers on how to deploy.
-Make sure all your changes are committed (including an entry in HISTORY.rst).
-Then run::
 
-$ bumpversion patch # possible: major / minor / patch
-$ git push
-$ git push --tags
+1. Make sure that all tests pass on https://travis-ci.org/IngoScholtes/pathpy .
+2. Test that the README.rst is valid rst, so as to avoid rendering issues on
+   https://pypi.python.org , the render engine is very strict::
+    $ rstcheck README.rst
 
-Travis will then deploy to PyPI if tests pass.
+3. Add an entry in HISTORY.rst, outlining the Changes from the previous version
+4. Make sure all your changes are committed (including an entry in HISTORY.rst).
+5. Then run the following to sync the tags and correctly increase the version number::
+
+    $ bumpversion patch # possible: major / minor / patch
+    $ git push
+    $ git push --tags
+
+6. Push new version of pathpy to https://pypi.python.org
+   Install `twine` if you haven't done so yet. Remove the `--repository-url` flag
+   to push to pypi proper and not the test staging site ::
+
+    $ make dist
+    $ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+7. Check https://test.pypi.org/project/pathpy/ to check if everything is fine.

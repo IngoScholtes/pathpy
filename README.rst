@@ -1,7 +1,8 @@
 .. image:: https://raw.githubusercontent.com/IngoScholtes/pathpy/master/pathpy_logo.png
+.. highlight:: shell
 
-Introduction
-============
+Pathpy
+======
 
 ``pathpy`` is an OpenSource python package for the modeling and analysis
 of pathways and temporal networks using **higher-order** and
@@ -15,7 +16,7 @@ information propagating in social media. Unifying the analysis of
 pathways and temporal networks, ``pathpy`` also supports the extraction
 of time-respecting paths from time-stamped network data. It extends (and
 will eventually supersede) the package
-```pyTempnets`` <https://github.com/IngoScholtes/pyTempNets>`__.
+`pyTempnets <https://github.com/IngoScholtes/pyTempNets>`__.
 
 ``pathpy`` facilitates the analysis of temporal correlations in such
 sequential data. It uses a principled model selection technique to infer
@@ -58,22 +59,19 @@ paper <https://arxiv.org/abs/1702.05499>`__.
 |Watch promotional video|
 
 Download and installation
-=========================
+-------------------------
 
 ``pathpy`` is pure python code. It has no platform-specific dependencies
 and should thus work on all platforms. It builds on ``numpy`` and
-``scipy``. The latest version of ``pathpy`` can be installed by typing:
+``scipy``. The latest version of ``pathpy`` can be installed through pip::
 
-``> pip install git+git://github.com/IngoScholtes/pathpy.git``
+    $ pip install pathpy
 
-``pathpy`` currently requires python 3.x. We are planning to make the
-next version backwards compatible with python 2.x.
 
 Tutorial
-========
+---------
 
-A `comprehensive educational
-tutorial <https://ingoscholtes.github.io/pathpy/tutorial.html>`__ which
+A `comprehensive educational tutorial <https://ingoscholtes.github.io/pathpy/tutorial.html>`__ which
 shows how you can use ``pathpy`` to analyze data on pathways and
 temporal networks is `available
 online <https://ingoscholtes.github.io/pathpy/tutorial.html>`__.
@@ -82,11 +80,11 @@ networks** in the modeling of dynamical processes in temporal networks
 is `available
 here <https://www.sg.ethz.ch/team/people/ischoltes/research-insights/temporal-networks-demo/>`__.
 The latter tutorial is based on the predecessor library
-```pyTempNets`` <https://github.com/IngoScholtes/pyTempNets>`__. Most of
+`pyTempNets <https://github.com/IngoScholtes/pyTempNets>`__. Most of
 its features have been ported to ``pathpy``.
 
 Documentation
-=============
+-------------
 
 The code is fully documented via docstrings which are accessible through
 python's built-in help system. Just type ``help(SYMBOL_NAME)`` to see
@@ -94,7 +92,7 @@ the documentation of a class or method. A `reference manual is available
 here <https://ingoscholtes.github.io/pathpy/hierarchy.html>`__.
 
 Releases and Versioning
-=======================
+-----------------------
 
 The first public beta release of pathpy (released February 17 2017) is
 `v1.0-beta <https://github.com/IngoScholtes/pathpy/releases/tag/v1.0-beta.1>`__.
@@ -103,7 +101,7 @@ versioning <http://semver.org/>`__. The date of each release is encoded
 in the PATCH version.
 
 Acknowledgements
-================
+----------------
 
 The research behind this data analysis framework was funded by the Swiss
 State Secretariat for Education, Research and Innovation `(Grant
@@ -115,19 +113,19 @@ Success in Socio-Technical Systems: From Theory to
 Practice <https://www.sg.ethz.ch/projects/mtec-interaction-patterns/>`__.
 
 Contributors
-============
+------------
 
 | `Ingo Scholtes <http://www.ingoscholtes.net>`__ (project lead, development)
 | `Luca Verginer <http://www.verginer.eu/about/>`__ (development, testing)
 
 Past Contributors
-=================
+-----------------
 
 | Roman Cattaneo (development)
 | Nicolas Wider (testing)
 
 Copyright
-=========
+---------
 
 pathpy is licensed under the `GNU Affero General Public
 License <https://choosealicense.com/licenses/agpl-3.0/>`__.

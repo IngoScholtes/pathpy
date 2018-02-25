@@ -5,19 +5,11 @@
 
 from setuptools import setup, find_packages
 
-
-def parse_requirements(fiele_path):
-    """parse requirements.txt file"""
-    with open(fiele_path) as f:
-        req = f.readlines()
-    return [r.strip() for r in req if r.strip()]
-
-
 with open('README.rst') as readme_file, open('HISTORY.rst') as history_file:
     readme = readme_file.read()
     history = history_file.read()
 
-install_requirements = parse_requirements('requirements.txt')
+install_requirements = ['numpy', 'scipy']
 
 setup_requirements = ['pytest-runner']
 

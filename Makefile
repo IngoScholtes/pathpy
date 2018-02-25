@@ -55,9 +55,6 @@ lint: ## check style with flake8
 test: ## run tests quickly with the default Python
 	py.test
 
-test-all: ## run tests on every Python version with tox
-	tox
-
 coverage: ## check code coverage quickly with the default Python
 	coverage run --source pathpy -m pytest
 	coverage report -m
@@ -71,9 +68,6 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
-
-servedocs: docs ## compile the docs watching for changes
-	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
 release: clean ## package and upload a release
 	python setup.py sdist upload

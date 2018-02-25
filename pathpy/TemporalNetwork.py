@@ -1,27 +1,26 @@
 # -*- coding: utf-8 -*-
-"""
-    pathpy is an OpenSource python package for the analysis of sequential data on pathways and temporal networks using higher- and multi order graphical models
-
-    Copyright (C) 2016-2017 Ingo Scholtes, ETH Zürich
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as published
-    by the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-    Contact the developer:
-    
-    E-mail: ischoltes@ethz.ch
-    Web:    http://www.ingoscholtes.net
-"""
+#  pathpy is an OpenSource python package for the analysis of sequential data on pathways
+#  and temporal networks using higher- and multi order graphical models
+#
+#  Copyright (C) 2016-2017 Ingo Scholtes, ETH Zürich
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as published
+#  by the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+#
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#  Contact the developer:
+#
+#  E-mail: ischoltes@ethz.ch
+#  Web:    http://www.ingoscholtes.net
 
 import numpy as _np
 import sys as _sys
@@ -37,22 +36,22 @@ import pathpy.Paths
 
 class TemporalNetwork:
     """ This class represents a sequence of time-stamped edges.
-       Instances of this class can be used to generate path statistics 
+       Instances of this class can be used to generate path statistics
        based on the time-respecting paths resulting from a given maximum
        time difference between consecutive time-stamped edges.
     """
 
     def __init__(self, tedges = None):
         """
-        Constructor that generates a temporal network instance. 
-        
-        @param tedges: an optional list of (possibly unordered time-stamped) links 
-            from which to construct a temporal network instance. For the default value None        
+        Constructor that generates a temporal network instance.
+
+        @param tedges: an optional list of (possibly unordered time-stamped) links
+            from which to construct a temporal network instance. For the default value None
             an empty temporal network will be created.
         """
 
         ## A list of time-stamped edges of this temporal network
-        self.tedges = []        
+        self.tedges = []
 
         ## A list of nodes of this temporal network
         self.nodes = []
@@ -63,19 +62,19 @@ class TemporalNetwork:
         ## A dictionary storing all time-stamped links, indexed by time and target node
         self.targets = _co.defaultdict( lambda: dict() )
 
-        ## A dictionary storing all time-stamped links, indexed by time and source node 
+        ## A dictionary storing all time-stamped links, indexed by time and source node
         self.sources = _co.defaultdict( lambda: dict() )
 
         ## A dictionary storing time stamps at which links (v,*;t) originate from node v
         self.activities = _co.defaultdict( lambda: list() )
 
         ## A dictionary storing sets of time stamps at which links (v,*;t) originate from node v
-        ## Note that the insertion into a set is much faster than repeatedly checking whether 
+        ## Note that the insertion into a set is much faster than repeatedly checking whether
         ## an element already exists in a list!
         self.activities_sets = _co.defaultdict( lambda: set() )
 
         ## An ordered list of time-stamps
-        self.ordered_times = []        
+        self.ordered_times = []
 
         nodes_seen = _co.defaultdict( lambda:False )
 
@@ -104,33 +103,33 @@ class TemporalNetwork:
 
     @staticmethod
     def readFile(filename, sep=',', timestampformat="%Y-%m-%d %H:%M", maxlines=_sys.maxsize):
-        """ Reads time-stamped links from a file and returns a new instance 
-            of the class TemporalNetwork. The file is assumed to have a header 
+        """ Reads time-stamped links from a file and returns a new instance
+            of the class TemporalNetwork. The file is assumed to have a header
 
-                source target time 
+                source target time
 
-            where columns can be in arbitrary order and separated by arbitrary characters. 
+            where columns can be in arbitrary order and separated by arbitrary characters.
             Each time-stamped link must occur in a separate line and links are assumed to be
             directed.
-             
-            The time column can be omitted and in this case all links are assumed to occur 
-            in consecutive time stamps (that have a distance of one). Time stamps can be simple 
-            integers, or strings to be converted to UNIX time stamps via a custom timestamp format. 
-            For this, the python function datetime.strptime will be used. 
 
-            @param sep: the character that separates columns 
+            The time column can be omitted and in this case all links are assumed to occur
+            in consecutive time stamps (that have a distance of one). Time stamps can be simple
+            integers, or strings to be converted to UNIX time stamps via a custom timestamp format.
+            For this, the python function datetime.strptime will be used.
+
+            @param sep: the character that separates columns
             @param filename: path of the file to read from
-            @param timestampformat: used to convert string timestamps to UNIX timestamps. This parameter is 
+            @param timestampformat: used to convert string timestamps to UNIX timestamps. This parameter is
                 ignored, if the timestamps are digit types (like a simple int).
             @param maxlines: limit reading of file to certain number of lines, default sys.maxsize
 
         """
         assert (filename != ''), 'Empty filename given'
-        
+
         # Read header
         with open(filename, 'r') as f:
             tedges = []
-        
+
             header = f.readline()
             header = header.split(sep)
 
@@ -153,24 +152,24 @@ class TemporalNetwork:
 
             if time_ix<0:
                 Log.add('No time stamps found in data, assuming consecutive links', Severity.WARNING)
-        
+
             Log.add('Reading time-stamped links ...')
 
             line = f.readline()
-            n = 1 
+            n = 1
             while line and n <= maxlines:
                 fields = line.rstrip().split(sep)
                 try:
                     if time_ix >=0:
                         timestamp = fields[time_ix]
-                        # if the timestamp is a number, we use this 
+                        # if the timestamp is a number, we use this
                         if timestamp.isdigit():
                             t = int(timestamp)
-                        else:   # if it is a string, we use the timestamp format to convert it to a UNIX timestamp                                
+                        else:   # if it is a string, we use the timestamp format to convert it to a UNIX timestamp
                             x = _dt.datetime.strptime(timestamp, timestampformat)
                             t = int(_t.mktime(x.timetuple()))
                     else:
-                        t = n                
+                        t = n
                     if t>=0:
                         tedge = (fields[source_ix], fields[target_ix], t)
                         tedges.append(tedge)
@@ -187,10 +186,10 @@ class TemporalNetwork:
 
 
     def filterEdges(self, edge_filter):
-        """Filter time-stamped edges according to a given filter expression. 
+        """Filter time-stamped edges according to a given filter expression.
 
-        @param edge_filter: an arbitrary filter function of the form filter_func(v, w, time) that 
-            returns True for time-stamped edges that shall pass the filter, and False for all edges that 
+        @param edge_filter: an arbitrary filter function of the form filter_func(v, w, time) that
+            returns True for time-stamped edges that shall pass the filter, and False for all edges that
             shall be filtered out.
         """
 
@@ -207,9 +206,9 @@ class TemporalNetwork:
 
 
     def addEdge(self, source, target, ts):
-        """Adds a directed time-stamped edge (source,target;time) to the temporal network. To add an undirected 
+        """Adds a directed time-stamped edge (source,target;time) to the temporal network. To add an undirected
             time-stamped link (u,v;t) at time t, please call addEdge(u,v;t) and addEdge(v,u;t).
-        
+
         @param source: name of the source node of a directed, time-stamped link
         @param target: name of the target node of a directed, time-stamped link
         @param ts: (integer) time-stamp of the time-stamped link
@@ -231,19 +230,19 @@ class TemporalNetwork:
             self.activities[source].sort()
 
         # Reorder time stamps
-        self.ordered_times = sorted(self.time.keys())       
+        self.ordered_times = sorted(self.time.keys())
 
 
     def vcount(self):
         """
-        Returns the number of vertices in the temporal network. 
-        This number corresponds to the number of nodes in the (first-order) 
+        Returns the number of vertices in the temporal network.
+        This number corresponds to the number of nodes in the (first-order)
         time-aggregated network.
         """
 
         return len(self.nodes)
 
-        
+
     def ecount(self):
         """
         Returns the number of time-stamped edges (u,v;t) in the temporal network.
@@ -260,11 +259,11 @@ class TemporalNetwork:
         """
 
         return max(self.ordered_times)-min(self.ordered_times)
-    
+
 
     def getInterEventTimes(self):
         """
-        Returns an array containing all time differences between any 
+        Returns an array containing all time differences between any
         two consecutive time-stamped links (involving any node)
         """
 
@@ -276,7 +275,7 @@ class TemporalNetwork:
 
     def getInterPathTimes(self):
         """
-        Returns a dictionary which, for each node v, contains all time differences 
+        Returns a dictionary which, for each node v, contains all time differences
         between any time-stamped link (*,v;t) and the next link (v,*;t') (t'>t)
         in the temporal network
         """
@@ -312,42 +311,42 @@ class TemporalNetwork:
             summary += 'Observation length:\t' + str(max(self.ordered_times) - min(self.ordered_times)) + '\n'
             summary += 'Time stamps:\t\t' + str(len(self.ordered_times)) + '\n'
 
-            d = self.getInterEventTimes()    
+            d = self.getInterEventTimes()
             summary += 'Avg. inter-event dt:\t' + str(_np.mean(d)) + '\n'
             summary += 'Min/Max inter-event dt:\t' + str(min(d)) + '/' + str(max(d)) + '\n'
-        
-        return summary       
+
+        return summary
 
 
     def __str__(self):
         """
-        Returns the default string representation of 
+        Returns the default string representation of
         this temporal network instance.
         """
         return self.summary()
-   
 
-    def ShuffleEdges(self, l=0, with_replacement=False):        
+
+    def ShuffleEdges(self, l=0, with_replacement=False):
         """
         Generates a shuffled version of the temporal network in which edge statistics (i.e.
-        the frequencies of time-stamped edges) are preserved, while all order correlations are 
+        the frequencies of time-stamped edges) are preserved, while all order correlations are
         destroyed. The shuffling procedure randomly reshuffles the time-stamps of links.
-        
+
         @param l: the length of the sequence to be generated (i.e. the number of time-stamped links.
-            For the default value l=0, the length of the generated shuffled temporal network will be 
-            equal to that of the original temporal network. 
+            For the default value l=0, the length of the generated shuffled temporal network will be
+            equal to that of the original temporal network.
         @param with_replacement: Whether or not the sampling should be with replacement (default False)
         """
 
-        tedges = []        
-        
+        tedges = []
+
         timestamps = [e[2] for e in self.tedges]
         edges = list(self.tedges)
-        
+
         if l==0:
             l = len(self.tedges)
         for i in range(l):
-            
+
             if with_replacement:
             # Pick random link
                 edge = edges[_np.random.randint(0, len(edges))]
@@ -357,8 +356,8 @@ class TemporalNetwork:
                 # Pick random link
                 edge = edges.pop(_np.random.randint(0, len(edges)))
             # Pick random time stamp
-                time = timestamps.pop(_np.random.randint(0, len(timestamps)))            
-            
+                time = timestamps.pop(_np.random.randint(0, len(timestamps)))
+
             # Generate new time-stamped link
             tedges.append( (edge[0], edge[1], time) )
 
@@ -367,22 +366,22 @@ class TemporalNetwork:
 
         # Fix node order to correspond to original network
         t.nodes = self.nodes
-            
+
         return t
 
 
     def exportUnfoldedNetwork(self, filename):
         """
-        Generates a tex file that can be compiled to a time-unfolded 
+        Generates a tex file that can be compiled to a time-unfolded
         representation of the temporal network.
 
         @param filename: the name of the tex file to be generated.
-        """    
-        
+        """
+
         import os as _os
 
         output = []
-            
+
         output.append('\\documentclass{article}\n')
         output.append('\\usepackage{tikz}\n')
         output.append('\\usepackage{verbatim}\n')
@@ -401,37 +400,37 @@ class TemporalNetwork:
         output.append("\\tikzstyle{lbl} = [fill=white,text=black,circle]\n")
 
         last = ''
-            
+
         for n in _np.sort(self.nodes):
             if last == '':
                 output.append("\\node[lbl]                     (" + n + "-0)   {$" + n + "$};\n")
             else:
                 output.append("\\node[lbl,right=0.5cm of "+last+"-0] (" + n + "-0)   {$" + n + "$};\n")
             last = n
-            
+
         output.append("\\setcounter{a}{0}\n")
         output.append("\\foreach \\number in {"+ str(min(self.ordered_times))+ ",...," + str(max(self.ordered_times)+1) + "}{\n")
         output.append("\\setcounter{a}{\\number}\n")
         output.append("\\addtocounter{a}{-1}\n")
         output.append("\\pgfmathparse{\\thea}\n")
-        
+
         for n in  _np.sort(self.nodes):
             output.append("\\node[v,below=0.3cm of " + n + "-\\pgfmathresult]     (" + n + "-\\number) {};\n")
         output.append("\\node[lbl,left=0.5cm of " + _np.sort(self.nodes)[0] + "-\\number]    (col-\\pgfmathresult) {$t=$\\number};\n")
         output.append("}\n")
         output.append("\\path[->,thick]\n")
         i = 1
-        
+
         for ts in self.ordered_times:
             for edge in self.time[ts]:
                 output.append("(" + edge[0] + "-" + str(ts) + ") edge (" + edge[1] + "-" + str(ts + 1) + ")\n")
-                i += 1                                
+                i += 1
         output.append(";\n")
         output.append(
     """\end{tikzpicture}
     \end{center}
     \end{document}""")
-        
+
         # create directory if necessary to avoid IO errors
         directory = _os.path.dirname( filename )
         if directory != '':
