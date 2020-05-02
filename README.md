@@ -1,5 +1,7 @@
 <img src="https://github.com/IngoScholtes/pathpy/blob/master/pathpy_logo.png" width="300" alt="pathpy logo" />
 
+**Note**: This is the repository of an old version of pathpy. It will soon be replaced by [pathpy 3](https://github.com/pathpy/pathpy), which has a new [home on gitHub](https://github.com/pathpy/pathpy).
+
 # Introduction
 
 `pathpy` is an OpenSource python package for the modeling and analysis of pathways and temporal networks
